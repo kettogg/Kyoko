@@ -1,0 +1,25 @@
+{
+  "name": "proj-erza",
+  "version": "1.0.0",
+  "description": "Multipurpose Bot, Under Development!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ryuJin",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^0.5.0",
+    "ascii-table": "^0.0.9",
+    "axios": "^0.27.2",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.33.4",
+    "discord.js": "13.7",
+    "dotenv": "^16.0.1",
+    "glob": "^8.0.3",
+    "got": "^11.8.3",
+    "mongoose": "^6.3.5",
+    "ms": "^2.1.3",
+    "util": "^0.12.4"
+  }
+}
