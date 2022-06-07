@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 mongoose.connection.on('connected', () => {
-    console.log(chalk.green(`[DATABASE 1] `) + chalk.green(`Connected to MongoDB!`));
+    console.log(chalk.green(`[DATABASE 1] `) + chalk.cyan(`Connected to MongoDB!`));
 });
 
 mongoose.connection.on('disconnected', () => {

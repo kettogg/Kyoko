@@ -51,10 +51,10 @@ const AsciiTable = require("ascii-table");
         require(`${process.cwd()}/Handlers/${Handler}`)(client, globPromise, AsciiTable);
     });
 
-//=====================================| DATABASE |=====================================\\
+//=====================================| DATABASE |=====================================//
 
 require(`${process.cwd()}/Database/Connect.js`);
 
-//=====================================| CLIENT LOGIN |=====================================\\
+//=====================================| CLIENT LOGIN |=====================================//
 
 client.login(process.env.TOKEN);

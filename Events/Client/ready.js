@@ -35,7 +35,7 @@ module.exports = {
             'Arch': process.arch,
         });
 
-        console.log(chalk.green(`[READY] `) + chalk.yellow(`${client.user.tag} is online!`));
+        console.log(chalk.green(`[READY] `) + chalk.cyan(`${client.user.tag} is online!`));
 
         //======================< Activity >======================//
         setInterval(async () => {

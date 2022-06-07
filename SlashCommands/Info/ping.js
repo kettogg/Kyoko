@@ -21,7 +21,7 @@ module.exports = {
     guildOnly: true,
     nsfwOnly: false,
     botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
-    userPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
+    userPerms: ["VIEW_CHANNEL", "SEND_MESSAGES"],
 
     async execute(interaction, client) {
         try {

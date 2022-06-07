@@ -18,7 +18,8 @@ module.exports = async (client) => {
     process.on('unhandledRejection', (reason, promise) => {
         console.log(chalk.red(`[UNHANDLED REJECTION] `));
         console.log(reason, promise)
-        return client.user.send("Something went Wrong, Please try again :(")
+        process.exit(1) //Comment this out later !!
+        client.user.send("Something went Wrong, Please try again :(")
     })
 
     process.on('uncaughtException', (err, origin) => {

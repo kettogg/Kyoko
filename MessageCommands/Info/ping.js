@@ -24,18 +24,17 @@ module.exports = {
     nsfwOnly: false,
     botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
     userPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
-    descriptions: 'Show the bot\'s ping to the Discord API.',
+    description: 'Show the bot\'s ping to the Discord API.',
     usage: 'ping',
 
-    async execute(message, args, client, prefix) {
+    async execute(message, client, args, prefix) {
         try {
             // First
-            const msg = await message.reply({
+            const Msg = await message.reply({
                 embeds: [
                     new MessageEmbed()
-                        .setAuthor({ name: `Pinging... Please wait.`, iconURL: Embed.loadingicon1 })
+                        .setAuthor({ name: `Pinging... Please wait.`, iconURL: Embed.loadingIcon1 })
                         .setColor("#FFC0CB")
-                    // .setAuthor('Pinging... Please wait.', Embed.loadingicon1)
                 ]
             })
             setTimeout(() => {
@@ -51,7 +50,7 @@ module.exports = {
                 let totalLatency = webLatency + apiLatency
 
                 // Second
-                msg.edit({
+                Msg.edit({
                     embeds: [
                         new MessageEmbed()
                             .setColor("#FFC0CB")
@@ -74,6 +73,7 @@ module.exports = {
                                 }
                             ])
                             .setFooter({ iconURL: message.author.displayAvatarURL(), text: `Requested By ${message.author.tag}` })
+                            .setTimestamp()
                         // .setFooter(`${Embed.footertext} · v${version}`, message.client.user.displayAvatarURL())
                     ]
                 })

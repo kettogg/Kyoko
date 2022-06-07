@@ -58,11 +58,11 @@ module.exports = {
 
             // ========================================| Other list Handler |======================================= \\
 
-            // ====================< Owners only Check >=================== \\
-            const staff = Config.DEVELOPER.OWNER.concat(
+            // ====================< Developers only Check >=================== \\
+            const Staff = Config.DEVELOPER.OWNER.concat(
                 Config.DEVELOPER.CO_OWNER
             );
-            if (command.ownerOnly && !staff.includes(message.author.id)) {
+            if (command.devOnly && !Staff.includes(message.author.id)) {
                 return message.reply({
                     embeds: [
                         new MessageEmbed()
@@ -147,7 +147,7 @@ module.exports = {
 
             // ====================< Start Command >=================== \\
             try {
-                command.execute(message, args, client, prefix);
+                command.execute(message, client, args, prefix);
             } catch (error) {
                 console.error(error);
                 message.reply({

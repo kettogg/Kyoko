@@ -46,9 +46,38 @@ module.exports = {
                         });
                     } else if (option.value) args.push(option.value);
                 }
+
+                // ====================< Guild only Check >=================== \\
+                if (command.guildOnly && interaction.channel.type === "DM") {
+                    return interaction.reply({
+                        content: "I can't execute that command inside DMs!",
+                    });
+                }
+
+                // ====================< When we DM, we don't need to look for Guild Permissions! >=================== \\
+                if (!command.guildOnly && interaction.channel.type === "DM") {
+                    return command.execute(interaction, client, args, '/');
+                }
+
                 interaction.member = interaction.guild.members.cache.get(interaction.user.id) || await interaction.guild.members.fetch(interaction.user.id).catch(() => null);
 
                 // ========================================| Other list Handler |======================================= \\
+
+                // ====================< Developers only Check >=================== \\
+                const Staff = Config.DEVELOPER.OWNER.concat(
+                    Config.DEVELOPER.CO_OWNER
+                );
+                if (command.devOnly && !Staff.includes(interaction.user.id)) {
+                    return interaction.reply({
+                        embeds: [
+                            new MessageEmbed()
+                                .setColor(Embed.wrongcolor)
+                                .setTitle(`${Emoji.Message.ERROR} ${interaction.user.tag} Error!`)
+                                .setDescription(`The command \`${interaction.commandName}\` is Developer Only command.\nPlease use /help to see all the commands that you ccan use ^^.`)
+                                .setFooter(`${Embed.footertext} · v${version}`, interaction.client.user.displayAvatarURL())
+                        ]
+                    }).then(m => setTimeout(() => m.delete(), 6000));
+                }
 
                 // ====================< NSFW only Check >=================== \\
                 if (command.nsfwOnly && !interaction.channel.nsfw) {
@@ -63,18 +92,6 @@ module.exports = {
                         ]
                     })
                 }
-                // ====================< Guild only Check >=================== \\
-                if (command.guildOnly && interaction.channel.type === "DM") {
-                    return message.reply({
-                        content: "I can't execute that command inside DMs!",
-                    });
-                }
-
-                // ====================< When we DM, we don't need to look for Guild Permissions! >=================== \\
-                if (!command.guildOnly && interaction.channel.type === "DM") {
-                    return command.execute(interaction, args, client);
-                }
-
 
                 // ====================< Bots Permissions Check >=================== \\
                 if (command.botPerms && !interaction.channel.permissionsFor(client.user).has(command.botPerms)) {
@@ -121,7 +138,7 @@ module.exports = {
 
                 // ====================< Start Command >=================== \\
                 try {
-                    command.execute(interaction, client);
+                    command.execute(interaction, client, args, '/');
                 } catch (error) {
                     console.log(error);
                     return interaction.reply({
