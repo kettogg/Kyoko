@@ -1,15 +1,11 @@
-//=====================================| Import the Module |=====================================//
+/*====================================< IMPORT MODULES >====================================*/
 
-const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectmenu, MessageAttachment, Interaction, Discord, InteractionCreate, Client, Collection } = require('discord.js');
-// const clientSettingsObject = require(`${process.cwd()}/Functions/clientSettingsObject.js`);
+const { Client, Collection } = require('discord.js');
 const Settings = require(`${process.cwd()}/Settings/Settings.json`);
-// const Config = require(`${process.cwd()}/Settings/Config.json`);
-// const Emoji = require(`${process.cwd()}/Settings/Emojis.json`);
-// const Embed = require(`${process.cwd()}/Settings/Embed.json`);
 require("dotenv").config();
 require("ms");
 
-//=====================================| Creating Discord Client |=====================================//
+/*================================< CREATE DISCORD CLIENT >================================*/
 
 const client = new Client({
     shards: 'auto',
@@ -21,14 +17,14 @@ const client = new Client({
     intents: 32767,
 })
 
-//=====================================| DEPLOY SLASH COMMANDS |=====================================\\
+/*================================< DEPLOY [GUILD/GLOBAL] >================================*/
 
 client.deploySlash = {
     enabled: Settings.slashSettings.globalSlash,
     guild: Settings.slashSettings.guildSlashOnly
 };
 
-//=====================================| COLLECTIONS |=====================================//
+/*=====================================< COLLECTIONS >=====================================*/
 
 client.slashCommands = new Collection();
 client.categories = new Collection();
@@ -43,18 +39,17 @@ const { glob } = require("glob");
 const globPromise = promisify(glob);
 const AsciiTable = require("ascii-table");
 
-
-//=====================================| HANDLERS |=====================================//
+/*=======================================< HANDLERS >=======================================*/
 
 ["Events", "Commands", "SlashCommands", Settings.antiCrash ? "AntiCrash" : null]
     .forEach(Handler => {
         require(`${process.cwd()}/Handlers/${Handler}`)(client, globPromise, AsciiTable);
     });
 
-//=====================================| DATABASE |=====================================//
+/*=======================================< DATABASE >=======================================*/
 
 require(`${process.cwd()}/Database/Connect.js`);
 
-//=====================================| CLIENT LOGIN |=====================================//
+/*=====================================< CLIENT LOGIN >=====================================*/
 
 client.login(process.env.TOKEN);

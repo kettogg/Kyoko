@@ -15,8 +15,8 @@ const Embed = require(`${process.cwd()}/Settings/Embed.json`);
  */
 module.exports = {
     name: 'ping',
-    description: '🏓 Show the bot\'s Latency to the Discord API.',
-    cooldown: 15,
+    description: '🏓 Show the Bot\'s Latency to the Discord API.',
+    cooldown: 10,
     category: 'Info',
     guildOnly: true,
     nsfwOnly: false,
@@ -40,7 +40,7 @@ module.exports = {
             return interaction.editReply({
                 embeds: [
                     new MessageEmbed()
-                        .setColor("#FFC0CB")
+                        .setColor(Embed.ThemeColor)
                         .setTitle(`🏓  Pong!!`)
                         .setFields([
                             {

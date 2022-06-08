@@ -1,15 +1,15 @@
 {
-    "color": "#11FF28",
-    "successcolor": "#00FF00",
-    "stanbycolor": "#FFFFFF",
-    "wrongcolor": "#FF0000",
+    "ThemeColor": "#FB55D0",
+    "SuccessColor": "#00E7A6",
+    "StanbyColor": "#FAD9E6",
+    "WrongColor": "#FF5D5D",
   
-    "footertext": "Erza | Under Development",
-    "footericon": "",
-    "authoricon": "",
+    "FooterText": "Akemi | Under Development",
+    "FooterIcon": "",
+    "AuthorIcon": "",
   
-    "loadingIcon1": "https://cdn.discordapp.com/attachments/893741033081421845/904294347208527872/Loading.gif",
-    "loadingIcon2": "",
+    "LoadingIcon1": "https://cdn.discordapp.com/emojis/984077220458926170.gif?size=100&quality=lossless",
+    "LoadingIcon2": "",
   
-    "mongodbicon": "https://cdn.discordapp.com/attachments/921614775421640714/963071445351678042/mongodb.png"
+    "MongoIDIcon": "https://cdn.discordapp.com/attachments/921614775421640714/963071445351678042/mongodb.png"
   }

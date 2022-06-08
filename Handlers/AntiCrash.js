@@ -1,8 +1,8 @@
-//=====================================| Import the Module |=====================================//
+/*===================================< IMPORT MODULES >===================================*/
 const { Client } = require("discord.js");
 const chalk = require("chalk");
 
-// ========================================| Code |======================================= \\
+/*========================================| </> |========================================*/
 /**
  * 
  * @param {Client} client 
@@ -18,7 +18,7 @@ module.exports = async (client) => {
     process.on('unhandledRejection', (reason, promise) => {
         console.log(chalk.red(`[UNHANDLED REJECTION] `));
         console.log(reason, promise)
-        process.exit(1) //Comment this out later !!
+        process.exit(1) //Comment this out later!!
         client.user.send("Something went Wrong, Please try again :(")
     })
 

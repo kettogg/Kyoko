@@ -1,10 +1,13 @@
 const { Client, MessageEmbed, Message } = require("discord.js");
 const axios = require("axios");
 require("dotenv").config();
+const Embed = require("../../Settings/Embed.json");
+
+/*==================================| </> |==================================*/
 
 module.exports = {
     name: "getbanner",
-    description: "Displays the user's banner.",
+    description: "Displays the user's banner, Lets steal it...",
     cooldown: 10,
     category: 'Info',
     guildOnly: true,
@@ -37,26 +40,27 @@ module.exports = {
                     const bannerEmbed = new MessageEmbed()
                         .setTitle(`${user.tag}'s banner`)
                         .setImage(bannerUrl)
-                        .setColor(accent_color || "#FFC0CB")
+                        .setColor(accent_color || Embed.ThemeColor)
                         .setTimestamp()
+                        .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 
                     interaction.followUp({ embeds: [bannerEmbed] })
                 } else {
-                    // console.log(accent_color);
                     if (accent_color) {
                         const accentEmbed = new MessageEmbed()
                             .setDescription(`${user.tag} doesnot have a banner!,`)
                             .setColor(accent_color)
                             .setTimestamp()
+                            .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 
                         interaction.followUp({ embeds: [accentEmbed] });
                     } else {
-                        interaction.followUp({ embeds: [new MessageEmbed().setColor("#FFC0CB").setDescription(`**${user.tag}** doesnot have a banner nor a accent color`).setTimestamp()] });
+                        interaction.followUp({ embeds: [new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**${user.tag}** doesnot have a banner nor a accent color`).setTimestamp()] });
                     }
                 }
             })
             .catch((err) => {
-                interaction.followUp({ embeds: [new MessageEmbed().setColor("DARK_RED").setDescription(`Something went wrong :(`).setTimestamp()] });
+                interaction.followUp({ embeds: [new MessageEmbed().setColor(Embed.WrongColor).setDescription(`Something went wrong, Please Try again :(`).setTimestamp()] });
             })
     }
 }

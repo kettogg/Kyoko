@@ -1,23 +1,15 @@
-//=====================================| Import the Module |=====================================\\
-const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, MessageAttachment } = require('discord.js');
+/*================================< Import Modules >================================*/
+const { MessageEmbed } = require('discord.js');
 const { errorCmdLogs1 } = require(`${process.cwd()}/Functions/errorCmdLogs.js`);
 const { author, version } = require(`${process.cwd()}/package.json`);
-// const Settings = require(`${process.cwd()}/Settings/settings.json`);
-// const Config = require(`${process.cwd()}/Settings/config.json`);
-// const Emoji = require(`${process.cwd()}/Settings/emojis.json`);
 const Embed = require(`${process.cwd()}/Settings/Embed.json`);
-// const os = require('os');
-// require('ms');
 
-//=====================================| Code |=====================================\\
-/**
- * 
- * @param {MessageEmbed} 
- */
+/*=====================================| </> |=====================================*/
+
 module.exports = {
     name: 'ping',
     aliases: ['ping', 'latency', 'pong'],
-    cooldown: 15,
+    cooldown: 10,
     category: 'Info',
     ownerOnly: false,
     guildOnly: false,
@@ -33,8 +25,8 @@ module.exports = {
             const Msg = await message.reply({
                 embeds: [
                     new MessageEmbed()
-                        .setAuthor({ name: `Pinging... Please wait.`, iconURL: Embed.loadingIcon1 })
-                        .setColor("#FFC0CB")
+                        .setAuthor({ name: `Pinging, Please wait...`, iconURL: Embed.LoadingIcon1 })
+                        .setColor(Embed.ThemeColor)
                 ]
             })
             setTimeout(() => {
@@ -53,7 +45,7 @@ module.exports = {
                 Msg.edit({
                     embeds: [
                         new MessageEmbed()
-                            .setColor("#FFC0CB")
+                            .setColor(Embed.ThemeColor)
                             .setTitle(`🏓  Pong!!`)
                             .setFields([
                                 {
@@ -74,7 +66,6 @@ module.exports = {
                             ])
                             .setFooter({ iconURL: message.author.displayAvatarURL(), text: `Requested By ${message.author.tag}` })
                             .setTimestamp()
-                        // .setFooter(`${Embed.footertext} · v${version}`, message.client.user.displayAvatarURL())
                     ]
                 })
             }, 1500)

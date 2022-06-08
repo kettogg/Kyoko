@@ -5,7 +5,7 @@ if (!process.env.MONGO_URI) {
     throw new Error(chalk.red(`[DATABASE 1] `) + chalk.yellow(`The MONGO_URI environment variable is not set.`));
 };
 
-//=====================================| Connecting to DB |=====================================//
+/*=================================< Connecting to DB >=================================*/
 
 mongoose.connect(process.env.MONGO_URI, {
     keepAlive: true,

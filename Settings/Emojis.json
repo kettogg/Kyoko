@@ -1,7 +1,10 @@
 {
     "Message": {
-        "SUCCESS" : "<:Yes:893078238635642931>",
-        "ERROR" : "<:No:893078238522384426>"
+        "SUCCESS" : "<:RI_Tick:984077810316484659>",
+        "ERROR" : "<:RI_Cross:984077813189574696>",
+        "A_SUCCESS" : "<a:Purplish_Tick:984083670258307082>",
+        "BANDAGE" : "<:RI_Bandage:984077317724860507>",
+        "GHOSTHEART" : "<a:GhostHeart:984086791021805618>"
     },
 
     "System": {

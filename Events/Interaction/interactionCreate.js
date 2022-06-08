@@ -1,6 +1,6 @@
-//=====================================| Import the Module |=====================================\
+//=================================< IMPORT MODULES >=================================//
 
-const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, MessageAttachment, InteractionCreate } = require('discord.js');
+const { MessageEmbed, InteractionCreate } = require('discord.js');
 const { errorCmdLogs2 } = require(`${process.cwd()}/Functions/errorCmdLogs.js`);
 const { onCoolDown2 } = require(`${process.cwd()}/Functions/onCoolDown.js`);
 const { author, version } = require(`${process.cwd()}/package.json`);
@@ -9,7 +9,7 @@ const Config = require(`${process.cwd()}/Settings/Config.json`);
 const Emoji = require(`${process.cwd()}/Settings/Emojis.json`);
 const Embed = require(`${process.cwd()}/Settings/Embed.json`);
 
-//=====================================| Code |=====================================\
+//======================================| </> |======================================//
 
 module.exports = {
     name: "interactionCreate",
@@ -19,19 +19,18 @@ module.exports = {
      * @param {InteractionCreate} interaction 
      */
     async execute(interaction, client) {
-        // console.log(client.slashCommands)
-        // console.log("interaction.commandName")
+
         try {
-            //=====================================| Command Handling |=====================================\\
+            //================================< Command Handling >================================//
             if (interaction.isCommand()) {
                 const command = client.slashCommands.get(interaction.commandName);
                 if (!command) return interaction.reply({
                     ephemeral: true,
                     embeds: [
                         new MessageEmbed()
-                            .setColor(Embed.wrongcolor)
+                            .setColor(Embed.WrongColor)
                             .setDescription(`${Emoji.Message.ERROR} The command \`${interaction.commandName}\` doesn't exist!`)
-                            .setFooter({ text: `${Embed.footertext} · v${version}`, iconURL: client.user.displayAvatarURL() })
+                            .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                             .setTimestamp()
                     ]
                 }).catch(() => null);
@@ -47,23 +46,23 @@ module.exports = {
                     } else if (option.value) args.push(option.value);
                 }
 
-                // ====================< Guild only Check >=================== \\
+                // ==============================< Guild Only Check >============================== //
                 if (command.guildOnly && interaction.channel.type === "DM") {
                     return interaction.reply({
                         content: "I can't execute that command inside DMs!",
                     });
                 }
 
-                // ====================< When we DM, we don't need to look for Guild Permissions! >=================== \\
+                // ==========< When we DM, we don't need to look for Guild Permissions! >========== //
                 if (!command.guildOnly && interaction.channel.type === "DM") {
                     return command.execute(interaction, client, args, '/');
                 }
 
                 interaction.member = interaction.guild.members.cache.get(interaction.user.id) || await interaction.guild.members.fetch(interaction.user.id).catch(() => null);
 
-                // ========================================| Other list Handler |======================================= \\
+                /*==============================< Other List Handler >==============================*/
 
-                // ====================< Developers only Check >=================== \\
+                // ====================< Developers Only Check >=================== //
                 const Staff = Config.DEVELOPER.OWNER.concat(
                     Config.DEVELOPER.CO_OWNER
                 );
@@ -71,72 +70,72 @@ module.exports = {
                     return interaction.reply({
                         embeds: [
                             new MessageEmbed()
-                                .setColor(Embed.wrongcolor)
+                                .setColor(Embed.WrongColor)
                                 .setTitle(`${Emoji.Message.ERROR} ${interaction.user.tag} Error!`)
-                                .setDescription(`The command \`${interaction.commandName}\` is Developer Only command.\nPlease use /help to see all the commands that you ccan use ^^.`)
-                                .setFooter(`${Embed.footertext} · v${version}`, interaction.client.user.displayAvatarURL())
+                                .setDescription(`The command \`${interaction.commandName}\` is Developer Only command.\nPlease use /help to see all the commands that you can use ${Emoji.Message.GHOSTHEART}`)
+                                .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                         ]
-                    }).then(m => setTimeout(() => m.delete(), 6000));
+                    });
                 }
 
-                // ====================< NSFW only Check >=================== \\
+                // ======================< NSFW Only Check >====================== //
                 if (command.nsfwOnly && !interaction.channel.nsfw) {
                     return interaction.reply({
                         ephemeral: true,
                         embeds: [
                             new MessageEmbed()
-                                .setColor(Embed.wrongcolor)
+                                .setColor(Embed.WrongColor)
                                 .setDescription(`${Emoji.Message.ERROR} This command can only be used in NSFW channels!`)
-                                .setFooter({ text: `${Embed.footertext} · v${version}`, iconURL: client.user.displayAvatarURL() })
+                                .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                                 .setTimestamp()
                         ]
                     })
                 }
 
-                // ====================< Bots Permissions Check >=================== \\
+                // ===================< Bot's Permission Check >=================== //
                 if (command.botPerms && !interaction.channel.permissionsFor(client.user).has(command.botPerms)) {
                     return interaction.reply({
                         ephemeral: true,
                         embeds: [
                             new MessageEmbed()
-                                .setColor(Embed.wrongcolor)
+                                .setColor(Embed.WrongColor)
                                 .setDescription(`${Emoji.Message.ERROR} I don't have the required permissions to use this command\n \`${command.botPerms.join(`, `)}\``)
-                                .setFooter({ text: `${Embed.footertext} · v${version}`, iconURL: client.user.displayAvatarURL() })
+                                .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                                 .setTimestamp()
                         ]
                     })
                 }
 
-                // ====================< Members Permissions Check >=================== \\
+                // ===================< User's Permission Check >=================== //
                 if (command.userPerms && !interaction.member.permissions.has(command.userPerms)) {
                     return interaction.reply({
                         ephemeral: true,
                         embeds: [
                             new MessageEmbed()
-                                .setColor(Embed.wrongcolor)
+                                .setColor(Embed.WrongColor)
                                 .setDescription(`${Emoji.Message.ERROR} You don't have the required permissions to use this command\n \`${command.userPerms.join(`, `)}\``)
-                                .setFooter({ text: `${Embed.footertext} · v${version}`, iconURL: client.user.displayAvatarURL() })
+                                .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                                 .setTimestamp()
                         ]
                     })
                 }
 
-                // ====================< Cooldown Check >=================== \\
+                // =======================< Cooldown Check >======================= //
                 if (command.cooldown && onCoolDown2(interaction, command)) {
                     return interaction.reply({
                         ephemeral: true,
                         embeds: [
                             new MessageEmbed()
-                                .setColor(Embed.wrongcolor)
+                                .setColor(Embed.WrongColor)
                                 .setTitle(`${Emoji.Message.ERROR} You are on a cooldown for \`${command.cooldown}\` seconds!`)
-                                .setDescription(`Please wait \`${onCoolDown2(interaction, command).toFixed(1)}s\`, Before using the \`${command.name}\` command again!`)
-                                .setFooter({ text: `${Embed.footertext} · v${version}`, iconURL: client.user.displayAvatarURL() })
+                                .setDescription(`Please wait \`${onCoolDown2(interaction, command).toFixed(1)}s\`, Before using the \`${command.name}\` command again! ${Emoji.Message.GHOSTHEART}`)
+                                .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                                 .setTimestamp()
                         ]
                     })
                 }
 
-                // ====================< Start Command >=================== \\
+                // =======================< Start Command >======================= //
                 try {
                     command.execute(interaction, client, args, '/');
                 } catch (error) {
@@ -145,11 +144,10 @@ module.exports = {
                         ephemeral: true,
                         embeds: [
                             new MessageEmbed()
-                                .setColor(Embed.wrongcolor)
+                                .setColor(Embed.WrongColor)
                                 .setDescription(`${Emoji.Message.ERROR} There was an error trying to execute that command!`)
-                                .setDescription(`There was an error trying to execute that command.`)
                                 .addField('Error', `\`\`\`${error}\`\`\``)
-                                .setFooter({ text: `${Embed.footertext} · v${version}`, iconURL: client.user.displayAvatarURL() })
+                                .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: client.user.displayAvatarURL() })
                                 .setTimestamp()
                         ]
                     })

@@ -1,10 +1,13 @@
 const { Client, MessageEmbed, Message } = require("discord.js");
 const axios = require("axios");
 require("dotenv").config();
+const Embed = require("../../Settings/Embed.json");
+
+/*==================================| </> |==================================*/
 
 module.exports = {
     name: "getavatar",
-    description: "Displays the user's Avatar Image.",
+    description: "Displays the user's Avatar Image, Let's steal it...",
     cooldown: 10,
     category: 'Info',
     guildOnly: true,
@@ -36,16 +39,17 @@ module.exports = {
                     const avatarEmbed = new MessageEmbed()
                         .setTitle(`${user.tag}'s Avatar`)
                         .setImage(avatarUrl)
-                        .setColor(accent_color || "#FFC0CB")
+                        .setColor(accent_color || Embed.ThemeColor)
                         .setTimestamp()
+                        .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 
                     interaction.followUp({ embeds: [avatarEmbed] })
                 } else {
-                    interaction.followUp({ embeds: [new MessageEmbed().setColor("#FFC0CB").setDescription(`**${user.tag}** doesnot have an Avatar`).setTimestamp()] });
+                    interaction.followUp({ embeds: [new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**${user.tag}** doesnot have an Avatar`).setTimestamp()] });
                 }
             })
             .catch((err) => {
-                interaction.editReply({ embeds: [new MessageEmbed().setColor("DARK_RED").setDescription(`Something went wrong :(`).setTimestamp()] });
+                interaction.editReply({ embeds: [new MessageEmbed().setColor(Embed.WrongColor).setDescription(`Something went wrong :(`).setTimestamp()] });
             })
 
     }

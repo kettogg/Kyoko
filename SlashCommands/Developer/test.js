@@ -1,8 +1,9 @@
 //=====================================| Import the Module |=====================================//
 
-const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, MessageAttachment } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, MessageAttachment, Emoji } = require('discord.js');
 const { errorCmdLogs2 } = require(`${process.cwd()}/Functions/errorCmdLogs.js`);
 const Embed = require(`${process.cwd()}/Settings/Embed.json`);
+const Emojis = require("../../Settings/Emojis.json");
 
 //=====================================| Code |=====================================//
 
@@ -19,7 +20,8 @@ module.exports = {
 
     async execute(interaction, client, args, prefix) {
         try {
-            interaction.reply("Test Command ✅");
+            // interaction.reply(`Testing Command...`);
+            interaction.reply(`${Emojis.Message.SUCCESS} Test Command`);
         } catch (error) {
             errorCmdLogs2(error, interaction, client);
         }

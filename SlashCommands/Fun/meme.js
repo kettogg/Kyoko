@@ -1,10 +1,12 @@
 const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
 const got = require("got");
-//=====================================| Code |=====================================//
+const Embed = require("../../Settings/Embed.json")
+
+/*==================================| </> |==================================*/
 
 module.exports = {
     name: "meme",
-    description: "Get's a meme from reddit",
+    description: "Get a random meme from reddit, Yayy!",
     cooldown: 10,
     category: 'Fun',
     guildOnly: true,
@@ -25,15 +27,15 @@ module.exports = {
                 interaction.editReply({
                     embeds: [new MessageEmbed().setTitle(data.title)
                         .setURL(data.postLink)
-                        .setColor("#FFC0CB")
-                        .setDescription(`Author-> ${data.author}  |  Upvotes-> ${data.ups}`)
+                        .setColor(Embed.ThemeColor)
+                        .setDescription(`**Author:** \`${data.author}\`  •  **Upvotes:** \`${data.ups}\``)
                         .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
                         .setTimestamp()
                         .setImage(data.url)]
                 });
             })
             .catch((err) => {
-                interaction.editReply({ embeds: [new MessageEmbed().setColor("DARK_RED").setDescription(`Something went wrong, Please try again :(`)] });
+                interaction.editReply({ embeds: [new MessageEmbed().setColor(Embed.WrongColor).setDescription(`Something went wrong, Please try again :(`)] });
             })
     }
 }

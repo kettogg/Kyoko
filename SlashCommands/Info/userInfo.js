@@ -1,5 +1,7 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js")
-//=====================================| Code |=====================================//
+const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
+const Embed = require("../../Settings/Embed.json");
+
+//=====================================| </> |=====================================//
 /**
  * 
  * @param {Client} client
@@ -17,7 +19,7 @@ module.exports = {
     options: [
         {
             name: "member",
-            description: "The member whose details you want.",
+            description: "The member whose details you wanna view..",
             type: "USER",
             required: true
         }
@@ -26,21 +28,21 @@ module.exports = {
         await interaction.deferReply();
         const member = interaction.options.getMember("member") || interaction.member
         const activities = member.presence?.activities || []
-        // console.log(member.roles.cache.size-1); Number of Roles of that Member!
         const rolesCount = member.roles.cache.size - 1; //Excluding the @everyone Role
         const focusActivity = activities.find(x => x.assets)
+
         const MsgEmbed = new MessageEmbed()
             .setAuthor({ name: member.user.tag, iconURL: member.user.displayAvatarURL() })
             .setColor(member.displayHexColor === "#000000" ? "#ffffff" : member.displayHexColor)
             .setThumbnail(focusActivity ? `https://cdn.discordapp.com/app-assets/${focusActivity.applicationId}/${focusActivity.assets.largeImage}` : member.user.displayAvatarURL())
-            .setDescription(activities.map((x, i) => `**${x.type}**: \`${x.name || "None"} : ${x.details || "None"} : ${x.state || "None"}\``).join("\n"))
+            .setDescription(activities.map((x, i) => `**${x.type.charAt(0).toUpperCase() + x.type.slice(1).toLowerCase()}:**  \`${x.name || "None"}${x.details ? ` : ${x.details}` : ""}\``).join("\n"))
             .addField("Joined Server On", member.joinedAt.toLocaleString(), true)
             .addField("Account Created On", member.user.createdAt.toLocaleString(), true)
             .addField(`Roles [${rolesCount}]`, `${rolesCount ? member.roles.cache.map(r => r).join(" ").replace("@everyone", " ") : `None`}`)
             .addField("Common Information", [
-                `Display Name: \`${member.displayName}\``,
-                `Pending Member: \`${member.pending ? 'Yes' : 'No'}\``,
-                `Booster: \`${member.premiumSince ? 'Boosting Since ' + member.premiumSince.toLocaleString() : 'Nope'}\``
+                `**Display Name:** \`\`${member.displayName}\`\``,
+                `**Pending Member:** \`\`${member.pending ? 'Yes' : 'No'}\`\``,
+                `**Booster:** \`\`${member.premiumSince ? 'Boosting Since ' + member.premiumSince.toLocaleString() : 'Nope'}\`\``
             ].join("\n"))
             .setTimestamp()
             .setFooter({ text: `ID: ${member.user.id} ` })

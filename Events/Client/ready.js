@@ -1,16 +1,13 @@
-//=====================================| Import the Module |=====================================//
+//=================================< IMPORT MODULES >=================================//
+
 const { MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu, MessageAttachment } = require('discord.js');
 const { author, version } = require(`${process.cwd()}/package.json`);
-// const Settings = require(`${process.cwd()}/Settings/settings.json`);
 const Config = require(`${process.cwd()}/Settings/Config.json`);
-// const Emoji = require(`${process.cwd()}/Settings/emojis.json`);
-// const Embed = require(`${process.cwd()}/Settings/embed.json`);
 const Discord = require('discord.js');
 require('dotenv').config();
-// const ms = require("ms");
 const chalk = require("chalk");
-const { execute } = require('../../SlashCommands/Fun/meme');
-//=====================================| Code |=====================================//
+
+//======================================| </> |======================================//
 
 module.exports = {
     name: "ready",

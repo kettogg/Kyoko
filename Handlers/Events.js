@@ -1,10 +1,9 @@
-//=====================================| Import the Module |=====================================//
+/*====================================< IMPORT MODULES >====================================*/
 
 const { ValidEvents } = require("../Validation/ValidEvents");
-// const { readdirSync } = require("fs");
 const chalk = require("chalk");
 
-// ========================================| Code |======================================= //
+/*=========================================| </> |=========================================*/
 
 module.exports = async (client, globPromise, AsciiTable) => {
 
@@ -25,20 +24,9 @@ module.exports = async (client, globPromise, AsciiTable) => {
         } else {
             client.on(event.name, (...args) => event.execute(...args, client))
         }
-
         Table.addRow(event.name, '✅');
-    })
-    console.log(chalk.greenBright(Table.toString()));
 
-    // const load_dir = (dir) => {
-    //     const eventsFolders = readdirSync(`${process.cwd()}/Events/${dir}`).filter(x => x.endsWith('.js'));
-    //     for (const File of eventsFolders) {
-    //         const pull = require(`${process.cwd()}/Events/${dir}/${File}`);
-    //         const eventName = File.split('.')[0];
-    //         console.log(eventName);
-    //         client.on(eventName, pull.bind(null, client));
-    //     };
-    //     console.log(`[EVENTS] ` + `[${eventsFolders.length}] ` + `in ` + `${dir} ` + `was loaded!`);
-    // };
-    // ['Client', 'Interaction', 'Message'].forEach(e => load_dir(e));
+    })
+
+    console.log(chalk.green(Table.toString()));
 }

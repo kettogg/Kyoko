@@ -1,4 +1,4 @@
-//=====================================| Import the Module |=====================================\\
+/*====================================< IMPORT MODULES >====================================*/
 
 const { ValidPerms } = require("../Validation/ValidPermissions")
 const { readdirSync, read } = require("fs");
@@ -9,7 +9,7 @@ const chalk = require("chalk");
 const CLIENT_ID = process.env.CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
 
-// ========================================| Code |======================================= //
+/*=========================================| </> |=========================================*/
 
 module.exports = async (client, globPromise, AsciiTable) => {
     let Table = new AsciiTable().setHeading("Slash Commands", "Stats").setBorder('|', '=', "0", "0");
@@ -30,36 +30,10 @@ module.exports = async (client, globPromise, AsciiTable) => {
         await Table.addRow(slashCommand.name, "✅")
 
     })
-    console.log(chalk.magentaBright(Table.toString()));
+    console.log(chalk.magenta(Table.toString()));
 
-    // readdirSync(`${process.cwd()}/SlashCommands/`)
-    //     .forEach((dir) => {
-    //         readdirSync(`${process.cwd()}/SlashCommands/${dir}/`).filter((file) => file.endsWith('.js'))
-    //             .forEach((file) => {
-    //                 let slashObj = require(`${process.cwd()}/SlashCommands/${dir}/${file}`);
-    //                 if(!slashObj.name) return Table.addRow()
-    //                 client.slashCommands.set(slashObj.name, slashObj);
+    /*==============================< DEPLOYING (/) COMMANDS >==============================*/
 
-    //                 slashCommandsArray.push(slashObj);
-    //             });
-    //         console.log(`[SLASH COMMANDS] ` + `[${slashCommandsArray.length}] ` + `in ` + `${dir} ` + `was loaded!`);
-    //     });
-
-    // const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-
-    // (async () => {
-    //     try {
-    //         console.log('Started refreshing application (/) commands...');
-    //         await rest.put(
-    //             Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
-    //             { body: slashCommandsArray },
-    //         );
-    //         console.log('Successfully reloaded application (/) commands!');
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // })();
-    // ========================================| Deploying Slash Commands |======================================= //
     client.on("ready", async () => {
         if (client.deploySlash.enabled) {
             if (client.deploySlash.guild) {
