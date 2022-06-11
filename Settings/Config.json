@@ -1,4 +1,4 @@
-{
+{       
     "Application_Information": {
             "TOKEN": "Config in .env file or set it in the environment variable in your hostinger project"
     },

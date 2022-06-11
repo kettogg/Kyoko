@@ -61,6 +61,15 @@ module.exports = {
                 interaction.member = interaction.guild.members.cache.get(interaction.user.id) || await interaction.guild.members.fetch(interaction.user.id).catch(() => null);
 
                 /*==============================< Other List Handler >==============================*/
+                // ========================< MUSIC SYSTEM >======================== //
+                const player = interaction.client.manager.players.get(interaction.guildId);
+                if (command.player && !player) {
+                    return await interaction.reply({
+                        content: `There is no player for this guild.`,
+                        ephemeral: true,
+                    })
+                        .catch(() => { });
+                }
 
                 // ====================< Developers Only Check >=================== //
                 const Staff = Config.DEVELOPER.OWNER.concat(
@@ -118,6 +127,27 @@ module.exports = {
                                 .setTimestamp()
                         ]
                     })
+                }
+                // ========================< MUSIC SYSTEM >======================== //
+                if (command.inVoiceChannel && !interaction.member.voice.channel) {
+                    return await interaction
+                        .reply({
+                            content: `You must be in a voice channel!`,
+                            ephemeral: true,
+                        })
+                        .catch(() => { });
+                }
+                if (command.sameVoiceChannel) {
+                    if (interaction.guild.me.voice.channel) {
+                        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
+                            return await interaction
+                                .reply({
+                                    content: `I'm already playing in <#${interaction.guild.me.voice}> voice channel, Trying to kidnap me?`,
+                                    ephemeral: true,
+                                })
+                                .catch(() => { });
+                        }
+                    }
                 }
 
                 // =======================< Cooldown Check >======================= //

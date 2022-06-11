@@ -1,7 +1,10 @@
 /*====================================< IMPORT MODULES >====================================*/
 
 const { Client, Collection } = require('discord.js');
+const Manager = require("kazagumo");
+const ShoukakuOptions = require("./Settings/ShoukakuOptions");
 const Settings = require(`${process.cwd()}/Settings/Settings.json`);
+const { readdirSync } = require("fs");
 require("dotenv").config();
 require("ms");
 
@@ -38,6 +41,36 @@ const { promisify } = require("util");
 const { glob } = require("glob");
 const globPromise = promisify(glob);
 const AsciiTable = require("ascii-table");
+
+/*====================================< MUSIC CLIENT >====================================*/
+
+client.logger = require("./Utils/Logger");
+const NodeConfig = require("./Utils/Config");
+client.manager;
+
+const SpotifyCreds = {
+    spotify: {
+        clientId: process.env.SPOTIFY_ID,
+        clientSecret: process.env.SPOTIFY_SECRET
+    },
+    defaultSearchEngine: "youtube_music"
+};
+client.manager = new Manager(client, NodeConfig.nodes, ShoukakuOptions, SpotifyCreds);
+
+// =========================< LOAD NODE MANAGER EVENTS >========================= //
+readdirSync("./Events(MusicSys)/Node/").forEach(eventFile => {
+    const event = require(`./Events(MusicSys)/Node/${eventFile}`);
+    let eventName = eventFile.split(".")[0];
+    client.logger.log(`Loading Lavalink Events ${eventName}`, "event");
+    client.manager.shoukaku.on(event.name, (...args) => event.execute(client, ...args));
+});
+// =======================< LOAD PLAYER MANAGER EVENTS > ======================= //
+readdirSync("./Events(MusicSys)/Player/").forEach(eventFile => {
+    const event = require(`./Events(MusicSys)/Player/${eventFile}`);
+    let eventName = eventFile.split(".")[0];
+    client.logger.log(`Loading Player Events ${eventName}`, "event");
+    client.manager.on(event.name, (...args) => event.execute(client, ...args));
+});
 
 /*=======================================< HANDLERS >=======================================*/
 
