@@ -8,6 +8,7 @@ const Settings = require(`${process.cwd()}/Settings/Settings.json`);
 const Config = require(`${process.cwd()}/Settings/Config.json`);
 const Emoji = require(`${process.cwd()}/Settings/Emojis.json`);
 const Embed = require(`${process.cwd()}/Settings/Embed.json`);
+const DB = require("../../Schema/Setup")
 
 //======================================| </> |======================================//
 
@@ -21,8 +22,13 @@ module.exports = {
     async execute(interaction, client) {
 
         try {
+            // =============================< BUTTON INTERACTIONS >============================= //
+            if (interaction.isButton()) {
+                let data = await DB.findOne({ Guild: interaction.guildId });
+                if (data && interaction.channelId === data.Channel && interaction.message.id === data.Message) return client.emit("playerButton", interaction, data);
+            };
             //================================< Command Handling >================================//
-            if (interaction.isCommand()) {
+            if (interaction.isCommand() || interaction.isContextMenu()) {
                 const command = client.slashCommands.get(interaction.commandName);
                 if (!command) return interaction.reply({
                     ephemeral: true,
@@ -183,7 +189,6 @@ module.exports = {
                     })
                 }
             }
-
         } catch (error) {
             errorCmdLogs2(error, interaction, client);
         }

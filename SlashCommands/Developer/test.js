@@ -10,7 +10,7 @@ const Emojis = require("../../Settings/Emojis.json");
 module.exports = {
     name: 'test',
     cooldown: 15,
-    description: "Test's the Event's and Command's Handlers",
+    description: "Test the Events and Commands Handler",
     category: "Developer",
     devOnly: true,
     nsfwOnly: false,

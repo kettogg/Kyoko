@@ -4,7 +4,8 @@ const Emoji = require("../../Settings/Emojis.json")
 
 module.exports = {
     name: "skip",
-    description: "Skips to next song in the Queue!",
+    description: "Skips to next song in the Queue",
+    category: "Music",
     guildOnly: true,
     player: true,
     dj: false,

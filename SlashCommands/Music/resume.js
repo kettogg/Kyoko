@@ -4,7 +4,8 @@ const Emoji = require("../../Settings/Emojis.json");
 
 module.exports = {
     name: "resume",
-    description: "Resumes currently playing music",
+    description: "Resumes the currently playing music",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,

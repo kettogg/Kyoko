@@ -5,7 +5,7 @@ const Emoji = require("../../Settings/Emojis.json");
 
 // =========================< ANIMATE THE TRACK BAR >========================= //
 function TrackBar(player) {
-    let size = 30;
+    let size = 32;
     let line = "-";
     let slider = `${Emoji.Music.MUSICNOTE_SINGLE}`;
 
@@ -21,6 +21,7 @@ function TrackBar(player) {
 module.exports = {
     name: "nowplaying",
     description: "Shows the info about currently playing song!",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,
@@ -49,8 +50,7 @@ module.exports = {
             .addField("Author", `${track.author}`, true)
             .addField("Track Length", `${track.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}`, true)
             .addField("Requested By", `${track.requester}`, true)
-            .addField("Track Bar", `**< ${TrackBar(player)} >  |**  **<** ${convertTime(current)}/${convertTime(total)} **>**`, false)
-            .setImage("https://media1.tenor.com/images/0accfe33701e75a4774231fd6970f697/tenor.gif?itemid=25929352")
+            .addField(`Track Bar`, `**${convertTime(current)}** **| < ${TrackBar(player)} > |** **${convertTime(total)}**`, false)
             .setColor(Embed.ThemeColor)
             .setFooter({ text: `Requested By ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
             .setTimestamp()

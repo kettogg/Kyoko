@@ -5,13 +5,12 @@
         "MIKUHEART" : "<:HatsuneMikuHeart:984833065085964328>",
         "BANDAGE" : "<:RI_Bandage:984077317724860507>",
         "GHOSTHEART" : "<a:GhostHeart:984086791021805618>",
-        "PINKHEART" : "<:Pink_Heart:984857271735554098> "
+        "PINKHEART" : "<:Pink_Heart:984857271735554098>",
+        "HEARTPINK" : "<:HEARTPINK:986178683209404437>"
     },
 
     "System": {
-        "Ping": "🏓",
-        "Loading": "⏳",
-        "Search": "🔎"
+        "Ping": "🏓"
     },
 
     "Music" : {
@@ -30,6 +29,11 @@
         "PAUSE" : "<:Pause:984819910586806293>",
         "RESUME" : "<:Resume:984822569452576808>",
         "MIKUCUTE" : "<a:HatsuneMiku_Cute:984848605473021992>",
-        "HYPHEN" : "<:Hyphen:985060267610226698>"
+        "HYPHEN" : "<:Hyphen:985060267610226698>",
+        "VOLUMEUP" : "<:VolumeUp:985146377912844309>",
+        "VOLUMEDOWN" : "<:VolumeDown:985146355787890698>",
+        "PLAYPAUSE": "<:PlayPause:985145455849639996>",
+        "NEXTSONG" : "<:NextSong:985166532541841488>",
+        "PREVSONG" : "<:PrevSong:985166484164739144>"
     }
 }

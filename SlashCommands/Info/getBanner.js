@@ -7,7 +7,7 @@ const Embed = require("../../Settings/Embed.json");
 
 module.exports = {
     name: "getbanner",
-    description: "Displays the user's banner, Lets steal it...",
+    description: "Displays the user's Banner, Lets steal it!",
     cooldown: 10,
     category: 'Info',
     guildOnly: true,

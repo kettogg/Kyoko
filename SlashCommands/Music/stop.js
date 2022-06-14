@@ -5,7 +5,8 @@ const Emoji = require("../../Settings/Emojis.json")
 
 module.exports = {
     name: "stop",
-    description: "Stops the music, and clears the queue!",
+    description: "Stops the music, and clears the Queue!",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,

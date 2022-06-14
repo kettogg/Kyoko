@@ -4,7 +4,8 @@ const Emoji = require("../../Settings/Emojis.json");
 
 module.exports = {
     name: "skipto",
-    description: "Jump over to any song in the queue",
+    description: "Jump over to any song in the Queue",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,

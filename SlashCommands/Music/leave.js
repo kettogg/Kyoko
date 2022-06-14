@@ -5,6 +5,7 @@ const Emoji = require("../../Settings/Emojis.json")
 module.exports = {
     name: "leave",
     description: "Destroys the player, and leaves the channel!",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,

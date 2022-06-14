@@ -9,7 +9,7 @@ const Embed = require("../../Settings/Embed.json");
  */
 module.exports = {
     name: "userinfo",
-    description: "Display's the user information of a server member.",
+    description: "Display's the user information of a server member",
     cooldown: 10,
     category: 'Info',
     guildOnly: true,

@@ -6,7 +6,8 @@ const Emoji = require("../../Settings/Emojis.json")
 
 module.exports = {
     name: "queue",
-    description: "Display's the songs in the server queue...",
+    description: "Display's all the songs in the server Queue",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,
@@ -21,10 +22,14 @@ module.exports = {
     async execute(interaction, client) {
         await interaction.deferReply().catch(() => { });
         const player = client.manager.players.get(interaction.guildId);
+        // console.log(player.current);
         // ============================< CHECKS >============================ //
         if (!player.queue)
             return await interaction.editReply({ content: `Nothing is playing right now, add some songs using \`/play\`!`, }).catch(() => { });
-
+        // ===========< FIXES THE PROBLEM OF /QUEUE AFTER /STOP >=========== //
+        if (!player.current) {
+            return await interaction.editReply({ content: `Nothing is playing right now, add some songs using \`/play\`!`, }).catch(() => { });
+        }
         if (player.queue.length === '0' || !player.queue.length) {
             await interaction.editReply({
                 embeds: [new MessageEmbed()
@@ -38,11 +43,12 @@ module.exports = {
                     .setTimestamp()]
 
             });
-        } else {
+        }
+        else {
             // ==================< MAPPING TRACK WITH INDEX >================== //
             const mapping = player.queue.map(
                 (track, i) =>
-                    `\`${++i})\` \`[${track.isStream ? '[**◉ LIVE**]' : convertTime(track.length)}]\` **[${track.title}](${track.uri})** - ${track.requester}`,
+                    `**${++i}.** \`[${track.isStream ? '[**◉ LIVE**]' : convertTime(track.length)}]\` **[${track.title}](${track.uri})** - ${track.requester}`,
             );
             // =========< Divide Mapping in Chunks of 10 & Paginate >========= //
             const chunk = lodash.chunk(mapping, 10);
@@ -55,8 +61,8 @@ module.exports = {
                         .setColor(Embed.ThemeColor)
                         .setTitle(`${Emoji.Music.MUSIC_QUEUE} ${interaction.guild.name}'s Queue`)
                         .setDescription(
-                            `${Emoji.Music.MUSIC_CD} **Now playing**\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
-                            }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n${Emoji.Music.COMINGNEXT} **Coming Next**\n${pages[page]}`)
+                            `**Now playing** ${Emoji.Music.MUSIC_CD}\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
+                            }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n**Coming Next** ${Emoji.Music.COMINGNEXT}\n${pages[page]}`)
                         .setFooter({
                             text: `Page ${page + 1}/${pages.length}`,
                             iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
@@ -75,8 +81,8 @@ module.exports = {
                     .setColor(Embed.ThemeColor)
                     .setTitle(`${Emoji.Music.MUSIC_QUEUE} ${interaction.guild.name}'s Queue`)
                     .setDescription(
-                        `${Emoji.Music.MUSIC_CD} **Now playing**\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
-                        }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n${Emoji.Music.COMINGNEXT} **Coming Next**\n${pages[page]}`)
+                        `**Now playing** ${Emoji.Music.MUSIC_CD}\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
+                        }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n**Coming Next** ${Emoji.Music.COMINGNEXT}\n${pages[page]}`)
                     .setFooter({
                         text: `Page ${page + 1}/${pages.length}`,
                         iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
@@ -158,8 +164,8 @@ module.exports = {
                             .setColor(Embed.ThemeColor)
                             .setTitle(`${Emoji.Music.MUSIC_QUEUE} ${interaction.guild.name}'s Queue`)
                             .setDescription(
-                                `${Emoji.Music.MUSIC_CD} **Now playing**\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
-                                }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n${Emoji.Music.COMINGNEXT} **Coming Next**\n${pages[page]}`)
+                                `**Now playing** ${Emoji.Music.MUSIC_CD}\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
+                                }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n**Coming Next** ${Emoji.Music.COMINGNEXT}\n${pages[page]}`)
                             .setFooter({
                                 text: `Page ${page + 1}/${pages.length}`,
                                 iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
@@ -184,8 +190,8 @@ module.exports = {
                             .setColor(Embed.ThemeColor)
                             .setTitle(`${Emoji.Music.MUSIC_QUEUE} ${interaction.guild.name}'s Queue`)
                             .setDescription(
-                                `${Emoji.Music.MUSIC_CD} **Now playing**\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
-                                }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n${Emoji.Music.COMINGNEXT} **Coming Next**\n${pages[page]}`)
+                                `**Now playing** ${Emoji.Music.MUSIC_CD}\n\`[${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)
+                                }]\` **[${player.current.title}](${player.current.uri})** - ${player.current.requester}\n\n**Coming Next** ${Emoji.Music.COMINGNEXT}\n${pages[page]}`)
                             .setFooter({
                                 text: `Page ${page + 1}/${pages.length}`,
                                 iconURL: interaction.user.displayAvatarURL({ dynamic: true }),

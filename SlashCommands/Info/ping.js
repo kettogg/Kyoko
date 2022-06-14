@@ -15,7 +15,7 @@ const Embed = require(`${process.cwd()}/Settings/Embed.json`);
  */
 module.exports = {
     name: 'ping',
-    description: '🏓 Show the Bot\'s Latency to the Discord API.',
+    description: 'Shows the Bot\'s Latency to the Discord API',
     cooldown: 10,
     category: 'Info',
     guildOnly: true,

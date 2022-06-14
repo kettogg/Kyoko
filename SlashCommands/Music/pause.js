@@ -5,6 +5,7 @@ const Emoji = require("../../Settings/Emojis.json");
 module.exports = {
     name: "pause",
     description: "Pauses the currently playing music",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,

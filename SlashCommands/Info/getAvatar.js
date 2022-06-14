@@ -7,7 +7,7 @@ const Embed = require("../../Settings/Embed.json");
 
 module.exports = {
     name: "getavatar",
-    description: "Displays the user's Avatar Image, Let's steal it...",
+    description: "Displays the user's Avatar Image, Let's steal it!",
     cooldown: 10,
     category: 'Info',
     guildOnly: true,

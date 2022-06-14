@@ -6,6 +6,7 @@ const Emoji = require("../../Settings/Emojis.json")
 module.exports = {
     name: 'play',
     description: 'Lets listen to some music with me!',
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     guildOnly: true,
@@ -64,11 +65,12 @@ module.exports = {
             deaf: true,
         });
         const result = await player.search(query, interaction.user);
-        if (!result.tracks.length) return interaction.editReply({ content: 'No result was found' });
+        if (!result.tracks.length) return interaction.editReply({ content: "No result's found!" });
         const tracks = result.tracks;
         if (result.type === 'PLAYLIST') for (let track of tracks) player.addSong(track);
         else player.addSong(tracks[0]);
         if (!player.current) player.play();
+        // console.log(result);
         return interaction.editReply(
             result.type === 'PLAYLIST'
                 ? {

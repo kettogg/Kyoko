@@ -3,8 +3,9 @@ const Emoji = require("../../Settings/Emojis.json");
 const Embed = require("../../Settings/Embed.json");
 
 module.exports = {
-    name: 'join',
-    description: 'Join voice channel',
+    name: "join",
+    description: "Joins your Voice Channel!",
+    category: "Music",
     userPerms: [],
     botPerms: ['EMBED_LINKS'],
     player: false,
