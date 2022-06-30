@@ -3,12 +3,14 @@
     "SuccessColor": "#00E7A6",
     "StanbyColor": "#FAD9E6",
     "WrongColor": "#FF5D5D",
+    "LightBlue": "#4DE8DD",
+
   
     "FooterText": "Akemi | Under Development",
     "FooterIcon": "",
     "AuthorIcon": "https://cdn.discordapp.com/avatars/782274609030103111/a_f4124957d39e49ca32bfe6c886096f56.gif?size=4096",
   
-    "LoadingIcon1": "https://cdn.discordapp.com/emojis/984077220458926170.gif?size=100&quality=lossless",
+    "LoadingIcon1": "https://cdn.discordapp.com/emojis/977934365281619980.gif?size=100&quality=lossless",
     "LoadingIcon2": "",
   
     "MongoIDIcon": "https://cdn.discordapp.com/attachments/921614775421640714/963071445351678042/mongodb.png"

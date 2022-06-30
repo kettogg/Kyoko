@@ -5,7 +5,7 @@ const Game = new TicTacToe({ language: "en", commandOptionName: "rival" });
 
 module.exports = {
     name: "tictactoe",
-    description: "Play TIC-TAC-TOE, Yayy!",
+    description: "Play TIC-TAC-TOE!",
     type: "CHAT_INPUT",
     cooldown: 10,
     category: 'Fun',

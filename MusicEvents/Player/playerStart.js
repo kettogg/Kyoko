@@ -1,7 +1,7 @@
 const { MessageEmbed, Client, MessageButton, MessageActionRow } = require("discord.js");
 const { convertTime } = require("../../Utils/Convert");
 const { trackStartEventHandler } = require("../../Utils/Functions");
-const DB = require("../../Schema/Setup");
+const DB = require("../../Database/Schema/Setup");
 const Emoji = require("../../Settings/Emojis.json")
 const Embed = require("../../Settings/Embed.json");
 
@@ -15,11 +15,12 @@ module.exports = {
      * @param {*} player 
      * @param {*} track 
      */
-    async execute(client, player, track) {
+    async execute(player, track, client) {
         let guild = client.guilds.cache.get(player.guild);
         if (!guild) return;
         let channel = guild.channels.cache.get(player.text);
         if (!channel) return;
+
         let data = await DB.findOne({ Guild: guild.id });
         if (data && data.Channel) {
             let textChannel = guild.channels.cache.get(data.Channel);
@@ -30,7 +31,6 @@ module.exports = {
                 await trackStartEventHandler(id, textChannel, player, track, client);
             };
         }
-        const emojiPlay = Emoji.Music.PLAY;
 
         const Msg = new MessageEmbed()
             .setAuthor({ name: `Now Playing`, iconURL: `https://cdn.discordapp.com/emojis/984495097339056168.gif?size=100&quality=lossless` })
@@ -42,7 +42,6 @@ module.exports = {
             .setFooter({ text: `Requested By ${track.requester.tag}`, iconURL: track.requester.displayAvatarURL() })
             .setTimestamp()
             .setThumbnail(`${track.thumbnail ? track.thumbnail : `https://img.youtube.com/vi/${player.current.identifier}/hqdefault.jpg`}`)
-
 
         client.channels.cache.get(player.text)?.send({ embeds: [Msg] }).then(x => player.data.set("message", x));
         await player.data.set("autoplaySystem", player.current.identifier);

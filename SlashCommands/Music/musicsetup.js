@@ -1,10 +1,10 @@
 const { CommandInteraction, Client, interactionEmbed, MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const DB = require("../../Schema/Setup");
+const DB = require("../../Database/Schema/Setup");
 const Embed = require("../../Settings/Embed.json");
 const Emoji = require("../../Settings/Emojis.json");
 
 module.exports = {
-    name: "setupmusic",
+    name: "musicsetup",
     description: "Sets up a music request channel!",
     category: "Music",
     userPerms: ['MANAGE_GUILD'],
@@ -90,27 +90,32 @@ module.exports = {
             let player = client.manager.players.get(interaction.guildId);
             if (player) disabledBtn = false;
 
-            const Title = player && player.queue && player.current ? `${Emoji.Music.MIKUSING} Now playing` : `${Emoji.Music.MIKUCUTE} Nothing is playing right now`;
-            const Desc = player && player.queue && player.current ? `[${player.current.title}](${player.current.uri})` : null;
+            const Author = player && player.queue && player.current ? `Now playing` : `Nothing is playing right now`;
+            const Title = player && player.queue && player.current ? `${player.current.title} | ${player.current.length}` : null;
+            const URI = player && player.queue && player.current ? `${player.current.uri}` : null;
             const Footer = {
                 text: player && player.queue && player.current ? `Requested By ${player.current.requester.tag}` : "",
                 iconURL: player && player.queue && player.current ? `${player.current.requester.displayAvatarURL({ dynamic: true })}` : `${client.user.displayAvatarURL({ dynamic: true })}`
             };
-            const Image = "https://i.pinimg.com/236x/9b/3c/d1/9b3cd1a82d9d2303d69cd9b8fd914b69.jpg";
+            const Image = "https://i.ibb.co/7SBTjXN/Vocaloid-IA.png";
 
-            let MsgEmbed = new MessageEmbed().setColor(Embed.ThemeColor).setTitle(Title).setFooter({ text: Footer.text, iconURL: Footer.iconURL }).setImage(Image).setTimestamp();
+            let MsgEmbed = new MessageEmbed()
+                .setColor(Embed.ThemeColor)
+                .setAuthor({ name: `${Author}`, iconURL: `https://cdn.discordapp.com/emojis/977934073748127824.gif?size=100&quality=lossless` })
+                .setFooter({ text: Footer.text, iconURL: Footer.iconURL })
+                .setImage(Image).setTimestamp();
 
-            if (player && player.queue && player.current) MsgEmbed.setDescription(Desc);
+            if (player && player.queue && player.current) MsgEmbed.setTitle(Title).setURL(URI);
             const pauseBtn = new MessageButton().setCustomId(`${interaction.guildId}pause`).setEmoji(`${Emoji.Music.PLAYPAUSE}`).setStyle("SECONDARY").setDisabled(disabledBtn)
             const prevBtn = new MessageButton().setCustomId(`${interaction.guildId}previous`).setEmoji(`${Emoji.Music.PREVSONG}`).setStyle("SECONDARY").setDisabled(disabledBtn)
             const nextBtn = new MessageButton().setCustomId(`${interaction.guildId}skip`).setEmoji(`${Emoji.Music.NEXTSONG}`).setStyle("SECONDARY").setDisabled(disabledBtn)
-            const volDownBtn = new MessageButton().setCustomId(`${interaction.guildId}voldown`).setEmoji(`${Emoji.Music.VOLUMEDOWN}`).setStyle("SECONDARY").setDisabled(disabledBtn)
-            const volUpBtn = new MessageButton().setCustomId(`${interaction.guildId}volup`).setEmoji(`${Emoji.Music.VOLUMEUP}`).setStyle("SECONDARY").setDisabled(disabledBtn)
+            const volDownBtn = new MessageButton().setCustomId(`${interaction.guildId}volDown`).setEmoji(`${Emoji.Music.VOLUMEDOWN}`).setStyle("SECONDARY").setDisabled(disabledBtn)
+            const volUpBtn = new MessageButton().setCustomId(`${interaction.guildId}volUp`).setEmoji(`${Emoji.Music.VOLUMEUP}`).setStyle("SECONDARY").setDisabled(disabledBtn)
 
             const row = new MessageActionRow().addComponents(volDownBtn, prevBtn, pauseBtn, nextBtn, volUpBtn)
-
+            const HelpEmbed = new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**Need Help? Summon me with \`/help\` command for help ;) Join a VC\nand, Start Queuing songs by using \`/play\` command!**`)
             const Msg = await textChannel.send({
-                embeds: [MsgEmbed],
+                embeds: [HelpEmbed, MsgEmbed],
                 components: [row]
             });
             // =======================< SAVE PLAYER TO DB >======================= //
@@ -123,7 +128,7 @@ module.exports = {
             await newData.save();
 
             return await interaction.editReply({
-                embeds: [new MessageEmbed().setColor(Embed.SuccessColor).setTitle("Setup Finished").setDescription(`**Song request channel has been created - ${textChannel}\n**Please don't delete the Player created in the Channel ${textChannel}, as it may cause the music system to fail!*`).setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })]
+                embeds: [new MessageEmbed().setColor(Embed.SuccessColor).setDescription(`**Song request channel has been created - ${textChannel}\n**Please don't delete the Player created in the Channel ${textChannel}, as it may cause the music system to fail!*`).setAuthor({ name: `Let's Go! ${interaction.user.tag}, Music Setup successfully created!`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })]
             });
         } else if (interaction.options.getSubcommand() === "delete") {
             if (!data) return await interaction.editReply({ content: `This server doesnot have any song request channel to delete!` });

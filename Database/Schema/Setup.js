@@ -7,4 +7,4 @@ let Setup = new Schema({
     voiceChannel: String,
 })
 
-module.exports = model('Setup', Setup);
+module.exports = model("Setup", Setup);

@@ -22,5 +22,5 @@ module.exports = async (client, globPromise, AsciiTable) => {
 
     })
 
-    console.log(chalk.blue(Table.toString()));
+    console.log(chalk.magenta(Table.toString()));
 }

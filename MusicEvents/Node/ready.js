@@ -1,16 +1,17 @@
-const DB = require("../../Schema/autoReconnect");
+const DB = require("../../Database/Schema/AutoReconnect");
+const { Log } = require("../../Utils/Logger");
 
 module.exports = {
     name: "ready",
-    async execute(client, name) {
+    async execute(name, client) {
 
-        client.logger.log(`Lavalink "${name}" connected.`, "ready");
+        Log(`Lavalink Node "${name}" Connected`, "READY");
 
         //---------------------[RETRIVING DATA FROM DB]---------------------//
 
-        client.logger.log("Auto Reconnect Collecting player 24/7 data", "log");
-        const MainData = await DB.find()
-        client.logger.log(`Auto Reconnect found ${MainData.length ? `${MainData.length} queue${MainData.length > 1 ? 's' : ''}. Resuming all auto reconnect queue` : '0 queue'}`, "ready");
+        Log("Auto Reconnect Collecting player 24/7 data", "LOG");
+        const MainData = await DB.find();
+        Log(`Auto Reconnect found ${MainData.length ? `${MainData.length} Queue${MainData.length > 1 ? 's' : ''} - Resuming all auto reconnect Queue` : '"0" Queue'}`, "READY");
         for (let data of MainData) {
             const index = MainData.indexOf(data);
             setTimeout(async () => {

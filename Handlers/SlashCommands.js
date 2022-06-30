@@ -1,9 +1,7 @@
 /*====================================< IMPORT MODULES >====================================*/
 
-const { ValidPerms } = require("../Validation/ValidPermissions")
-const { readdirSync, read } = require("fs");
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
 require("dotenv").config();
 const chalk = require("chalk");
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -39,11 +37,11 @@ module.exports = async (client, globPromise, AsciiTable) => {
             if (client.deploySlash.guild) {
                 console.log(chalk.yellowBright('Started refreshing application (/) commands...'));
                 client.guilds.cache.get(client.deploySlash.guild).commands.set(slashCommandsArray);
-                console.log(chalk.green('[GUILD] ') + chalk.yellow('Slash Commands (/) Registered!!'))
+                console.log(chalk.greenBright('[GUILD] ') + chalk.yellowBright('Slash Commands (/) Registered!!'))
             } else {
                 console.log(chalk.yellowBright('Started refreshing application (/) commands...'));
                 client.application.commands.set(slashCommandsArray);
-                console.log(chalk.green('[GLOBAL] ') + chalk.yellow('Slash Commands (/) Registered!!'))
+                console.log(chalk.greenBright('[GLOBAL] ') + chalk.yellowBright('Slash Commands (/) Registered!!'))
             };
         };
     });

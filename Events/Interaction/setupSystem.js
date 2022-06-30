@@ -1,5 +1,19 @@
 const { Client, Message, Permissions } = require("discord.js");
-const { playerHandler, OOPS } = require("../../Utils/Functions");
+const { playerHandler } = require("../../Utils/Functions");
+const Embed = require("../../Settings/Embed.json");
+
+async function sendEmbed(channel, args) {
+    try {
+        let MsgEmbed = new MessageEmbed().setColor(Embed.WrongColor).setDescription(`${args}`);
+        const Msg = await channel.send({
+            embeds: [MsgEmbed]
+        });
+
+        setTimeout(async () => await Msg.delete().catch(() => { }), 12000);
+    } catch (e) {
+        return console.error(e)
+    }
+};
 
 module.exports = {
     name: "setupSystem",
@@ -10,19 +24,19 @@ module.exports = {
      */
     async execute(client, message) {
         if (!message.member.voice.channel) {
-            await OOPS(message.channel, `You are not connected to a voice channel to queue songs!`, client.embedColor);
+            await sendEmbed(message.channel, `You are not connected to a voice channel to queue songs!`, client.embedColor);
             if (message) await message.delete().catch(() => { });
             return;
         };
 
         if (!message.member.voice.channel.permissionsFor(client.user).has([Permissions.FLAGS.CONNECT, Permissions.FLAGS.SPEAK])) {
-            await OOPS(message.channel, `I don't have enough permission to connect/speak in ${message.member.voice.channel}!`);
+            await sendEmbed(message.channel, `I don't have enough permission to connect/speak in ${message.member.voice.channel}!`);
             if (message) await message.delete().catch(() => { });
             return;
         };
 
         if (message.guild.me.voice.channel && message.guild.me.voice.channelId !== message.member.voice.channelId) {
-            await OOPS(message.channel, `You are not connected to <#${message.guild.me.voice.channelId}> to queue songs!`);
+            await sendEmbed(message.channel, `You are not connected to <#${message.guild.me.voice.channelId}> to queue songs!`);
             if (message) await message.delete().catch(() => { });
             return;
         };

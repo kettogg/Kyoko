@@ -23,12 +23,13 @@ module.exports = {
         });
         const { channel } = interaction.member.voice;
         const player = client.manager.players.get(interaction.guild.id);
+        // console.log(player.voice)
         if (player) {
             return await interaction.editReply({
                 embeds: [
                     new MessageEmbed()
                         .setColor(Embed.ThemeColor)
-                        .setDescription(`I'm already connected to <#${player.voice}> voice channel!`),
+                        .setDescription(`I'm already connected to ${player.voice} voice channel!`),
                 ],
             });
         } else {
@@ -66,8 +67,9 @@ module.exports = {
 
             let Msg = new MessageEmbed()
                 .setColor(Embed.SuccessColor)
+                .setTitle(`${emojiJoin} **Joined the voice channel**`)
                 .setDescription(
-                    `${emojiJoin} **Join the voice channel**\nJoined <#${channel.id}> and bound to <#${interaction.channel.id}>`,
+                    `Joined <#${channel.id}> voice channel and bound to <#${interaction.channel.id}> text channel!`,
                 );
             return interaction.editReply({ embeds: [Msg] });
         }

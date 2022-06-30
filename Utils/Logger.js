@@ -3,33 +3,30 @@ const moment = require("moment");
 
 /*================================< Logs Errors >================================*/
 
-module.exports = class Logger {
-    static log(content, type = "log") {
-        const date = `${moment().format("DD-MM-YYYY hh:mm:ss")}`;
-        switch (type) {
+function Log(content, type = "LOG") {
+    const Moment = `${moment().format("DD-MM-YYYY hh:mm:ss")}`;
+    switch (type) {
 
-            case "log": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgBlue(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            case "warn": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgYellow(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            case "error": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgRed(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            case "debug": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgGreen(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            case "cmd": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgWhite(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            case "event": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgHex('#e1f507')(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            case "ready": {
-                return console.log(`[${chalk.yellow(date)}]: [${chalk.black.bgHex('#067032')(type.toUpperCase())}] ${chalk.blue(content)}`);
-            }
-            default: throw new TypeError("Logger type must be either warn, debug, log, ready, cmd or error.");
+        case "LOG": {
+            return console.log(`|${chalk.magenta(Moment)}| ${chalk.black.bgBlue(` ${type} `)} ${chalk.blueBright(content)}`);
         }
+        case "WARN": {
+            return console.log(`|${chalk.magenta(Moment)}| ${chalk.black.bgYellow(` ${type} `)} ${chalk.yellowBright(content)}`);
+        }
+        case "ERROR": {
+            return console.log(`|${chalk.magenta(Moment)}| ${chalk.black.bgRed(` ${type} `)} ${chalk.red(content)}`);
+        }
+        // case "DEBUG": {
+        //     return console.log(`|${chalk.magenta(Moment)}| ${chalk.black.bgGreen(` ${type} `)} ${chalk.blue(content)}`);
+        // }
+        // case "CMD": {
+        //     return console.log(`|${chalk.magenta(Moment)}| ${chalk.black.bgWhite(` ${type} `)} ${chalk.blue(content)}`);
+        // }
+        case "READY": {
+            return console.log(`|${chalk.magenta(Moment)}| ${chalk.black.bgHex("#067032")(` ${type} `)} ${chalk.blueBright(content)}`);
+        }
+        default: throw new TypeError("Logger type must be either warn, debug, log, ready, cmd or error.");
     }
-};
+}
+
+module.exports = { Log }

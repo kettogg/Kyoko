@@ -52,8 +52,10 @@ module.exports = {
         } catch (error) { };
 
         let Icon = `${player.current.thumbnail ? player.current.thumbnail : `https://img.youtube.com/vi/${player.current.identifier}/hqdefault.jpg`}` || client.config.links.bg;
-
-        let nowPlaying = new MessageEmbed().setColor(Color).setDescription(`**[${player.current.title}](${player.current.uri})** - \`${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}\``).setImage(Icon).setTimestamp().setFooter({ text: `Requested By ${player.current.requester.tag}`, iconURL: player.current.requester.displayAvatarURL({ dynamic: true }) });
+        const HelpEmbed = new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**Need Help? Summon me with \`/help\` command for help ;) Join a VC\nand, Start Queuing songs by using \`/play\` command!**`)
+        let nowPlaying = new MessageEmbed().setColor(Color).setAuthor({ name: `Now Playing`, iconURL: `https://cdn.discordapp.com/emojis/984762608689242242.webp?size=100&quality=lossless` })
+            .setTitle(`${player.current.title} | ${player.current.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}`)
+            .setURL(player.current.uri).setImage(Icon).setTimestamp().setFooter({ text: `Requested By ${player.current.requester.tag}`, iconURL: player.current.requester.displayAvatarURL({ dynamic: true }) });
 
         // =======================< HANDLING BTN INTERACTIONS > ======================= //
         if (interaction.customId === `${interaction.guildId}pause`) {
@@ -61,20 +63,20 @@ module.exports = {
                 await player.setPaused(false);
                 await buttonReply(interaction, `${resumeEmoji} [${player.current.title}](${player.current.uri}) is now unpaused/resumed.`, Color);
                 if (message) await message.edit({
-                    embeds: [nowPlaying]
+                    embeds: [HelpEmbed, nowPlaying]
                 }).catch(() => { });
             } else {
                 await player.setPaused(true);
                 await buttonReply(interaction, `${pauseEmoji} [${player.current.title}](${player.current.uri}) is now paused.`, Color);
                 if (message) await message.edit({
-                    embeds: [nowPlaying]
+                    embeds: [HelpEmbed, nowPlaying]
                 }).catch(() => { });
             };
         } else if (interaction.customId === `${interaction.guildId}skip`) {
             if (player.queue.length === 0) return await buttonReply(interaction, `No more songs left in the queue to skip.`, Color);
             await player.player.stopTrack();
             if (message) await message.edit({
-                embeds: [nowPlaying]
+                embeds: [HelpEmbed, nowPlaying]
             }).catch(() => { });
             return await buttonReply(interaction, `${nextEmoji} Skipped - [${player.current.title}](${player.current.uri})`, Color)
 
@@ -88,31 +90,31 @@ module.exports = {
             }
             await buttonReply(interaction, `${prevEmoji} Previous - [${player.previous.title}](${player.previous.uri})`, Color);
             if (message) await message.edit({
-                embeds: [nowPlaying]
+                embeds: [HelpEmbed, nowPlaying]
             }).catch(() => { });
         } else if (interaction.customId === `${interaction.guildId}voldown`) {
             let amount = Number(player.player.filters.volume * 100 - 10);
-            if (amount <= 10) return await buttonReply(interaction, `Volume Cannot be Decreased below \`10%\`.`, Color);
+            if (amount <= 10) return await buttonReply(interaction, `Volume Cannot be Decreased below **10%**`, Color);
             if (message) await message.edit({
-                embeds: [nowPlaying]
+                embeds: [HelpEmbed, nowPlaying]
             }).catch(() => { });
             await player.setVolume(amount / 1);
-            await buttonReply(interaction, `${volumeEmoji} Volume set to - \`${player.player.filters.volume * 100}%\``, Color);
+            await buttonReply(interaction, `${volumeEmoji} Volume set to - **${player.player.filters.volume * 100}%**`, Color);
             if (message) await message.edit({
-                embeds: [nowPlaying]
+                embeds: [HelpEmbed, nowPlaying]
             }).catch(() => { });
 
         } else if (interaction.customId === `${interaction.guildId}volup`) {
             let amount = Number(player.player.filters.volume * 100 + 10);
             if (amount >= 100) return await buttonReply(interaction, `Volume Cannot Exceed \`100%\``, Color);
             await player.setVolume(amount / 1);
-            await buttonReply(interaction, `${volumeEmoji} Volume set to - \`${player.player.filters.volume * 100}%\``, Color);
+            await buttonReply(interaction, `${volumeEmoji} Volume set to - **${player.player.filters.volume * 100}%**`, Color);
             if (message) await message.edit({
-                embeds: [nowPlaying]
+                embeds: [HelpEmbed, nowPlaying]
             }).catch(() => { });
         } else {
             if (message) await message.edit({
-                embeds: [nowPlaying]
+                embeds: [HelpEmbed, nowPlaying]
             }).catch(() => { });
 
             return await buttonReply(interaction, `You've choosen an invalid button!`, Color);

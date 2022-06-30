@@ -44,8 +44,7 @@ const AsciiTable = require("ascii-table");
 
 /*====================================< MUSIC CLIENT >====================================*/
 
-client.logger = require("./Utils/Logger");
-const NodeConfig = require("./Utils/Config");
+const NodeConfig = require("./Settings/LavalinkConfig");
 client.manager;
 
 const SpotifyCreds = {
@@ -57,20 +56,9 @@ const SpotifyCreds = {
 };
 client.manager = new Manager(client, NodeConfig.nodes, ShoukakuOptions, SpotifyCreds);
 
-// =========================< LOAD NODE MANAGER EVENTS >========================= //
-readdirSync("./Events(MusicSys)/Node/").forEach(eventFile => {
-    const event = require(`./Events(MusicSys)/Node/${eventFile}`);
-    let eventName = eventFile.split(".")[0];
-    client.logger.log(`Loading Lavalink Events ${eventName}`, "event");
-    client.manager.shoukaku.on(event.name, (...args) => event.execute(client, ...args));
-});
-// =======================< LOAD PLAYER MANAGER EVENTS > ======================= //
-readdirSync("./Events(MusicSys)/Player/").forEach(eventFile => {
-    const event = require(`./Events(MusicSys)/Player/${eventFile}`);
-    let eventName = eventFile.split(".")[0];
-    client.logger.log(`Loading Player Events ${eventName}`, "event");
-    client.manager.on(event.name, (...args) => event.execute(client, ...args));
-});
+// ==============================< MUSIC HANDLER >============================== //
+
+require(`${process.cwd()}/Handlers/MusicSystem`)(client, globPromise, AsciiTable);
 
 /*=======================================< HANDLERS >=======================================*/
 

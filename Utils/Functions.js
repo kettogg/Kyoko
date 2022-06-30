@@ -1,5 +1,5 @@
 const { Message, MessageEmbed, Client, TextChannel, MessageButton, MessageActionRow } = require("discord.js");
-const DB = require("../Schema/Setup");
+const DB = require("../Database/Schema/Setup");
 const { convertTime } = require("./Convert");
 const Embed = require("../Settings/Embed.json");
 const Emoji = require("../Settings/Emojis.json");
@@ -24,27 +24,41 @@ async function trackStartEventHandler(msgId, channel, player, track, client) {
         } catch (error) { };
 
         if (!message) {
-            let Embed1 = new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**[${track.title}](${track.uri})** - \`${track.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}\``).setImage(Icon).setTimestamp().setFooter({ text: `Requested By ${player.current.requester.tag}`, iconURL: player.current.requester.displayAvatarURL({ dynamic: true }) });
+            let Embed1 = new MessageEmbed()
+                .setColor(Embed.ThemeColor)
+                .setAuthor({ name: `Now Playing`, iconURL: `https://cdn.discordapp.com/emojis/984762608689242242.webp?size=100&quality=lossless` })
+                .setTitle(`${track.title} | ${track.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}`)
+                .setURL(track.uri)
+                .setImage(Icon)
+                .setTimestamp()
+                .setFooter({ text: `Requested By ${player.current.requester.tag}`, iconURL: player.current.requester.displayAvatarURL({ dynamic: true }) });
 
             const Btn1 = new MessageButton().setCustomId(`${player.guild}pause`).setEmoji(`${Emoji.Music.PLAYPAUSE}`).setStyle('SECONDARY')
             const Btn2 = new MessageButton().setCustomId(`${player.guild}previous`).setEmoji(`${Emoji.Music.PREVSONG}`).setStyle('SECONDARY')
             const Btn3 = new MessageButton().setCustomId(`${player.guild}skip`).setEmoji(`${Emoji.Music.NEXTSONG}`).setStyle('SECONDARY')
-            const Btn4 = new MessageButton().setCustomId(`${player.guild}voldown`).setEmoji(`${Emoji.Music.VOLUMEDOWN}`).setStyle('SECONDARY')
-            const Btn5 = new MessageButton().setCustomId(`${player.guild}volup`).setEmoji(`${Emoji.Music.VOLUMEUP}`).setStyle('SECONDARY')
+            const Btn4 = new MessageButton().setCustomId(`${player.guild}volDown`).setEmoji(`${Emoji.Music.VOLUMEDOWN}`).setStyle('SECONDARY')
+            const Btn5 = new MessageButton().setCustomId(`${player.guild}volUp`).setEmoji(`${Emoji.Music.VOLUMEUP}`).setStyle('SECONDARY')
 
             const row = new MessageActionRow().addComponents(Btn4, Btn2, Btn1, Btn3, Btn5)
-
+            const HelpEmbed1 = new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**Need Help? Summon me with \`/help\` command for help ;) Join a VC\nand, Start Queuing songs by using \`/play\` command!`)
             const Msg = await channel.send({
-                content: `**${Emoji.Music.MIKUCUTE} Join voice channel and start queuing songs by Name/URL using \`/play\` command!**\n`,
-                embeds: [Embed1],
+                embeds: [HelpEmbed1, Embed1],
                 components: [row]
             });
             return await DB.findOneAndUpdate({ Guild: channel.guildId }, { Message: Msg.id });
         } else {
-            let Embed2 = new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`[${track.title}](${track.uri}) - \`${track.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}\``).setImage(Icon).setTimestamp().setFooter({ text: `Requested By ${player.current.requester.tag}`, iconURL: player.current.requester.displayAvatarURL({ dynamic: true }) });
+            let Embed2 = new MessageEmbed()
+                .setColor(Embed.ThemeColor)
+                .setAuthor({ name: `Now Playing`, iconURL: `https://cdn.discordapp.com/emojis/984762608689242242.webp?size=100&quality=lossless` })
+                .setTitle(`${track.title} | ${track.isStream ? '[**◉ LIVE**]' : convertTime(player.current.length)}`)
+                .setURL(track.uri)
+                .setImage(Icon)
+                .setTimestamp()
+                .setFooter({ text: `Requested By ${player.current.requester.tag}`, iconURL: player.current.requester.displayAvatarURL({ dynamic: true }) });
+
+            const HelpEmbed2 = new MessageEmbed().setColor(Embed.ThemeColor).setDescription(`**Need Help? Summon me with \`/help\` command for help ;) Join a VC\nand, Start Queuing songs by using \`/play\` command!**`)
             await message.edit({
-                content: `**${Emoji.Music.MIKUCUTE} Join voice channel and start queuing songs by Name/URL using \`/play\` command!**\n`,
-                embeds: [Embed2]
+                embeds: [HelpEmbed2, Embed2]
             });
         };
     } catch (error) {
@@ -71,18 +85,7 @@ async function buttonReply(interaction, args, color) {
         };
     }, 4000);
 };
-async function OOPS(channel, args) {
-    try {
-        let Embed1 = new MessageEmbed().setColor(Embed.WrongColor).setDescription(`${args}`);
-        const Msg = await channel.send({
-            embeds: [Embed1]
-        });
 
-        setTimeout(async () => await Msg.delete().catch(() => { }), 12000);
-    } catch (e) {
-        return console.error(e)
-    }
-};
 /**
  * 
  * @param {String} query 
@@ -137,4 +140,4 @@ async function playerHandler(query, player, message) {
 
 };
 
-module.exports = { trackStartEventHandler, buttonReply, OOPS, playerHandler }
+module.exports = { trackStartEventHandler, buttonReply, playerHandler }

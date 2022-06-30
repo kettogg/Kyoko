@@ -8,7 +8,7 @@ const Settings = require(`${process.cwd()}/Settings/Settings.json`);
 const Config = require(`${process.cwd()}/Settings/Config.json`);
 const Emoji = require(`${process.cwd()}/Settings/Emojis.json`);
 const Embed = require(`${process.cwd()}/Settings/Embed.json`);
-const DB = require("../../Schema/Setup")
+const DB = require("../../Database/Schema/Setup");
 
 //======================================| </> |======================================//
 
@@ -148,7 +148,7 @@ module.exports = {
                         if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
                             return await interaction
                                 .reply({
-                                    content: `I'm already playing in <#${interaction.guild.me.voice}> voice channel, Trying to kidnap me?`,
+                                    content: `I'm already playing in ${interaction.guild.me.voice.channel} voice channel, Trying to kidnap me?`,
                                     ephemeral: true,
                                 })
                                 .catch(() => { });

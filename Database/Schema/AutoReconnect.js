@@ -15,4 +15,4 @@ let autoReconnect = new Schema({
     },
 });
 
-module.exports = model("autoreconnect", autoReconnect);
+module.exports = model("AutoReconnect", autoReconnect);
