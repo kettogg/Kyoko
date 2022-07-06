@@ -1,8 +1,8 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
-const DB = require("../../Database/Schema/Setup");
-const Emoji = require("../../Settings/Emojis.json");
-const Embed = require("../../Settings/Embed.json");
-const { Log } = require("../../Utils/Logger");
+const DB = require("../../../Database/Schema/Setup");
+const Emoji = require("../../../Settings/Emojis.json");
+const Embed = require("../../../Settings/Embed.json");
+const { Log } = require("../../../Utils/Logger");
 
 // ============================< /setup => playerStart >============================ //
 

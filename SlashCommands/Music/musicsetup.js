@@ -66,7 +66,7 @@ module.exports = {
                     }
                 ]
             });
-            const voiceChannel = await interaction.guild.channels.create(`🌸 Akemi-Music`, {
+            const voiceChannel = await interaction.guild.channels.create(`🌸 ${client.user.username}-Music`, {
                 type: "GUILD_VOICE",
                 parent: Category.id,
                 bitrate: 1000 * 96,  // ===< Quality(For Non Boosted Server-96000 Max) >=== //

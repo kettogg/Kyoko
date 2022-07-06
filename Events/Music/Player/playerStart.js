@@ -1,9 +1,9 @@
 const { MessageEmbed, Client, MessageButton, MessageActionRow } = require("discord.js");
-const { convertTime } = require("../../Utils/Convert");
-const { trackStartEventHandler } = require("../../Utils/Functions");
-const DB = require("../../Database/Schema/Setup");
-const Emoji = require("../../Settings/Emojis.json")
-const Embed = require("../../Settings/Embed.json");
+const { convertTime } = require("../../../Utils/Convert");
+const { trackStartEventHandler } = require("../../../Utils/Functions");
+const DB = require("../../../Database/Schema/Setup");
+const Emoji = require("../../../Settings/Emojis.json")
+const Embed = require("../../../Settings/Embed.json");
 
 // ============================< /play => playerStart >============================ //
 
@@ -33,7 +33,7 @@ module.exports = {
         }
 
         const Msg = new MessageEmbed()
-            .setAuthor({ name: `Now Playing`, iconURL: `https://cdn.discordapp.com/emojis/984495097339056168.gif?size=100&quality=lossless` })
+            .setAuthor({ name: `Now Playing`, iconURL: `https://cdn.discordapp.com/emojis/807585282198994944.gif?size=100&quality=lossless` })
             .setTitle(`Track Name - [ ${track.title} ]`)
             .setURL(`${track.uri}`)
             .addField("Author", `${track.author}`, true)

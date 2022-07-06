@@ -33,7 +33,7 @@ module.exports = {
         setTimeout(() => {
             let stopMsgEmbed = new MessageEmbed()
                 .setColor(Embed.SuccessColor)
-                .setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/984848605473021992.gif?size=48&quality=lossless", name: "Stopped the music, and cleared the Queue" });
+                .setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/815172911408349205.webp?size=100&quality=lossless", name: "Stopped the music, and cleared the Queue" });
             interaction.editReply({ embeds: [stopMsgEmbed] });
         }, 500)
     },

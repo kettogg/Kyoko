@@ -1,5 +1,5 @@
-const DB = require("../../Database/Schema/AutoReconnect");
-const { Log } = require("../../Utils/Logger");
+const DB = require("../../../Database/Schema/AutoReconnect");
+const { Log } = require("../../../Utils/Logger");
 
 module.exports = {
     name: "ready",

@@ -4,7 +4,7 @@ module.exports = async (client, globPromise, AsciiTable) => {
     // =========================< LOAD LAVALINK NODE EVENTS >========================= //
     let Table1 = new AsciiTable();
     Table1.setHeading("Lavalink Node Events", "Stats").setBorder('|', '=', '0', '0');
-    (await globPromise(`${process.cwd()}/MusicEvents/Node/*.js`)).map((eventFile) => {
+    (await globPromise(`${process.cwd()}/Events/Music/Node/*.js`)).map((eventFile) => {
         const event = require(eventFile);
         if (!event.name) {
             const PathArray = eventFile.split("/");
@@ -23,7 +23,7 @@ module.exports = async (client, globPromise, AsciiTable) => {
     let Table2 = new AsciiTable();
     Table2.setHeading("Player Events", "Stats").setBorder('|', '=', '0', '0');
 
-    (await globPromise(`${process.cwd()}/MusicEvents/Player/*.js`)).map((eventFile) => {
+    (await globPromise(`${process.cwd()}/Events/Music/Player/*.js`)).map((eventFile) => {
         const event = require(eventFile);
         if (!event.name) {
             const PathArray = eventFile.split("/");
