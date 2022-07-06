@@ -8,6 +8,7 @@ const Settings = require(`${process.cwd()}/Settings/Settings.json`);
 const Config = require(`${process.cwd()}/Settings/Config.json`);
 const Emoji = require(`${process.cwd()}/Settings/Emojis.json`);
 const Embed = require(`${process.cwd()}/Settings/Embed.json`);
+const DB = require("../../Database/Schema/Setup");
 
 //======================================| </> |======================================//
 
@@ -21,8 +22,13 @@ module.exports = {
     async execute(interaction, client) {
 
         try {
+            // =============================< BUTTON INTERACTIONS >============================= //
+            if (interaction.isButton()) {
+                let data = await DB.findOne({ Guild: interaction.guildId });
+                if (data && interaction.channelId === data.Channel && interaction.message.id === data.Message) return client.emit("playerButton", interaction, data);
+            };
             //================================< Command Handling >================================//
-            if (interaction.isCommand()) {
+            if (interaction.isCommand() || interaction.isContextMenu()) {
                 const command = client.slashCommands.get(interaction.commandName);
                 if (!command) return interaction.reply({
                     ephemeral: true,
@@ -61,6 +67,15 @@ module.exports = {
                 interaction.member = interaction.guild.members.cache.get(interaction.user.id) || await interaction.guild.members.fetch(interaction.user.id).catch(() => null);
 
                 /*==============================< Other List Handler >==============================*/
+                // ========================< MUSIC SYSTEM >======================== //
+                const player = interaction.client.manager.players.get(interaction.guildId);
+                if (command.player && !player) {
+                    return await interaction.reply({
+                        content: `There is no player for this guild.`,
+                        ephemeral: true,
+                    })
+                        .catch(() => { });
+                }
 
                 // ====================< Developers Only Check >=================== //
                 const Staff = Config.DEVELOPER.OWNER.concat(
@@ -119,6 +134,27 @@ module.exports = {
                         ]
                     })
                 }
+                // ========================< MUSIC SYSTEM >======================== //
+                if (command.inVoiceChannel && !interaction.member.voice.channel) {
+                    return await interaction
+                        .reply({
+                            content: `You must be in a voice channel!`,
+                            ephemeral: true,
+                        })
+                        .catch(() => { });
+                }
+                if (command.sameVoiceChannel) {
+                    if (interaction.guild.me.voice.channel) {
+                        if (interaction.guild.me.voice.channelId !== interaction.member.voice.channelId) {
+                            return await interaction
+                                .reply({
+                                    content: `I'm already playing in ${interaction.guild.me.voice.channel} voice channel, Trying to kidnap me?`,
+                                    ephemeral: true,
+                                })
+                                .catch(() => { });
+                        }
+                    }
+                }
 
                 // =======================< Cooldown Check >======================= //
                 if (command.cooldown && onCoolDown2(interaction, command)) {
@@ -153,7 +189,6 @@ module.exports = {
                     })
                 }
             }
-
         } catch (error) {
             errorCmdLogs2(error, interaction, client);
         }

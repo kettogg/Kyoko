@@ -1,6 +1,5 @@
 const figlet = require("figlet");
 const { Client, Message, MessageEmbed } = require("discord.js");
-const { text } = require("figlet");
 const { Fonts } = require("../../Settings/FigletFonts");
 
 let Choices = []
@@ -14,12 +13,12 @@ for (let font of Fonts) {
 
 module.exports = {
     name: "textart",
-    description: "Converts the Text into Ascii Art, Yay!",
+    description: "Converts the Text into Ascii Art!",
     cooldown: 5,
     category: 'Fun',
     guildOnly: false,
     nsfwOnly: false,
-    botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_APPLICATION_COMMAND', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
+    botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
     userPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
     options: [
         {

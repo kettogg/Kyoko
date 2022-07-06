@@ -7,12 +7,12 @@ const Embed = require("../../Settings/Embed.json");
 
 module.exports = {
     name: "getavatar",
-    description: "Displays the user's Avatar Image, Let's steal it...",
+    description: "Displays the user's Avatar Image, Let's steal it!",
     cooldown: 10,
     category: 'Info',
     guildOnly: true,
     nsfwOnly: false,
-    botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_APPLICATION_COMMAND', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
+    botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
     userPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
     options: [
         {

@@ -10,17 +10,17 @@ if (!process.env.MONGO_URI) {
 mongoose.connect(process.env.MONGO_URI, {
     keepAlive: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
 });
 
 mongoose.connection.on('connected', () => {
-    console.log(chalk.green(`[DATABASE 1] `) + chalk.cyan(`Connected to MongoDB!`));
+    console.log(chalk.greenBright(`[DATABASE 1] `) + chalk.cyan(`Connected to MongoDB!`));
 });
 
 mongoose.connection.on('disconnected', () => {
-    console.log(chalk.red(`[DATABASE 1] `) + chalk.yellow(`Disconnected from MongoDB!`));
+    console.log(chalk.redBright(`[DATABASE 1]`) + chalk.yellow(`Disconnected from MongoDB!`));
 });
 
 mongoose.connection.on('error', (err) => {
-    console.log(chalk.red(`[DATABASE 1] `) + chalk.red(`Error: ${err}`));
+    console.log(chalk.redBright(`[DATABASE 1]`) + chalk.red(`Error: ${err}`));
 });

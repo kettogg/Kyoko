@@ -6,6 +6,7 @@ const Config = require(`${process.cwd()}/Settings/Config.json`);
 const Discord = require('discord.js');
 require('dotenv').config();
 const chalk = require("chalk");
+const { Log } = require("../../Utils/Logger");
 
 //======================================| </> |======================================//
 
@@ -32,19 +33,26 @@ module.exports = {
             'Arch': process.arch,
         });
 
-        console.log(chalk.green(`[READY] `) + chalk.cyan(`${client.user.tag} is online!`));
+        console.log(chalk.greenBright(`[READY]`) + chalk.cyan(` Successfully Logged in as ${client.user.tag}!`));
 
         //======================< Activity >======================//
         setInterval(async () => {
             // Animated Status Presence
-            const activities = [
+            const Activities = [
                 `${Config.SETTINGS.PREFIX}help | /help`,
-                `${Config.SETTINGS.PREFIX}help | /help`,
+                `Roses are red, silent as a mouse, your door is unlocked, I'm inside your house Booo!!`,
+                `I was born at a very young age`,
+                `I deserve a medal every day I do not stab someone with a fork`,
+                `We are all time travelers moving at the speed of exactly 60 minutes per hour`,
+                `If you are reading this, you have to use light mode for 5 minutes`,
+                `You just do not know how lucky you are that I am terrified of prison`
             ];
-
-            client.user.setActivity(activities[Math.floor(Math.random() * activities.length)], {
-                type: "LISTENING", // PLAYING, STREAMING, LISTENING, WATCHING
-                url: "https://www.twitch.tv/"
+            let Index = Math.floor(Math.random() * Activities.length)
+            let Type = "LISTENING"
+            if (Index !== 0) Type = "PLAYING"
+            // PLAYING, STREAMING, LISTENING, WATCHING
+            client.user.setActivity(Activities[Index], {
+                type: Type
             });
         }, 30000);
     }

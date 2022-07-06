@@ -1,7 +1,10 @@
 /*====================================< IMPORT MODULES >====================================*/
 
 const { Client, Collection } = require('discord.js');
+const Manager = require("kazagumo");
+const ShoukakuOptions = require("./Settings/ShoukakuOptions");
 const Settings = require(`${process.cwd()}/Settings/Settings.json`);
+const { readdirSync } = require("fs");
 require("dotenv").config();
 require("ms");
 
@@ -38,6 +41,24 @@ const { promisify } = require("util");
 const { glob } = require("glob");
 const globPromise = promisify(glob);
 const AsciiTable = require("ascii-table");
+
+/*====================================< MUSIC CLIENT >====================================*/
+
+const NodeConfig = require("./Settings/LavalinkConfig");
+client.manager;
+
+const SpotifyCreds = {
+    spotify: {
+        clientId: process.env.SPOTIFY_ID,
+        clientSecret: process.env.SPOTIFY_SECRET
+    },
+    defaultSearchEngine: "youtube_music"
+};
+client.manager = new Manager(client, NodeConfig.nodes, ShoukakuOptions, SpotifyCreds);
+
+// ==============================< MUSIC HANDLER >============================== //
+
+require(`${process.cwd()}/Handlers/MusicSystem`)(client, globPromise, AsciiTable);
 
 /*=======================================< HANDLERS >=======================================*/
 

@@ -1,4 +1,5 @@
 /*================================< Import Modules >================================*/
+
 const { MessageEmbed } = require('discord.js');
 const { errorCmdLogs1 } = require(`${process.cwd()}/Functions/errorCmdLogs.js`);
 const { author, version } = require(`${process.cwd()}/package.json`);
@@ -7,17 +8,17 @@ const Embed = require(`${process.cwd()}/Settings/Embed.json`);
 /*=====================================| </> |=====================================*/
 
 module.exports = {
-    name: 'ping',
-    aliases: ['ping', 'latency', 'pong'],
+    name: "ping",
+    aliases: ["ping", "latency", "pong"],
     cooldown: 10,
-    category: 'Info',
+    category: "Info",
     ownerOnly: false,
     guildOnly: false,
     nsfwOnly: false,
     botPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'USE_EXTERNAL_STICKERS', 'SEND_MESSAGES_IN_THREADS'],
     userPerms: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
-    description: 'Show the bot\'s ping to the Discord API.',
-    usage: 'ping',
+    description: "Shows the bot\'s ping to the Discord API",
+    usage: "ping",
 
     async execute(message, client, args, prefix) {
         try {
@@ -26,7 +27,7 @@ module.exports = {
                 embeds: [
                     new MessageEmbed()
                         .setAuthor({ name: `Pinging, Please wait...`, iconURL: Embed.LoadingIcon1 })
-                        .setColor(Embed.ThemeColor)
+                        .setColor(Embed.LightBlue)
                 ]
             })
             setTimeout(() => {
@@ -68,7 +69,7 @@ module.exports = {
                             .setTimestamp()
                     ]
                 })
-            }, 1500)
+            }, 2000)
 
         } catch (error) {
             errorCmdLogs1(client, message, error);
