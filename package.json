@@ -4,6 +4,7 @@
   "description": "Multipurpose Bot, Under Development!",
   "main": "index.js",
   "scripts": {
+    "kyoko": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ryuJin",
