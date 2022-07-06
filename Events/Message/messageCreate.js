@@ -137,7 +137,7 @@ module.exports = {
                     embeds: [
                         new MessageEmbed()
                             .setColor(Embed.WrongColor)
-                            .setTitle(`${Emoji.Message.ERROR} ${message.author.username}, You are on a cooldown for \`${command.cooldown}\` seconds!`)
+                            .setTitle(`${message.author.username}, You are on a cooldown for \`${command.cooldown}\` seconds!`)
                             .setDescription(`Please wait \`${onCoolDown1(message, command).toFixed(1)}\` Before using the \`${command.name}\` command again! ${Emoji.Message.GHOSTHEART}`)
                             .setFooter({ text: `${Embed.FooterText} · v${version}`, iconURL: message.client.user.displayAvatarURL() })
                     ]
