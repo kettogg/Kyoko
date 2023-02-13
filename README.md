@@ -1,7 +1,7 @@
 # Kyoko
 An adorable Multipurpose Discord Bot that is based on Kazagumo (Shoukaku Wrapper). It can play music, get memes from Reddit, display user information of a server member, and even play Tic-Tac-Toe with the user!
 
-WARNING: Kyoko Bot is still under development.
+⚠️**WARNING:** Some of the features are DEPRECATED, will try to update it soon. Under Development.
 </br>
 
 ## Table of Content
@@ -31,6 +31,7 @@ When the new tab pops up, select the server that you created a little bit ago an
 Once you confirm that you want to add the Kyoko Bot to your server, you should go back to your server and see a notification that the Kyoko Bot has been successfully added.
 You are now ready to use the Bot!
 
+⚠️*Kyoko's Link Expired*
 
 ### Features and Commands
 #### Music   
@@ -62,4 +63,4 @@ You are now ready to use the Bot!
 | /userinfo | Displays the user information of a server member |
 
 ## Contact
-If you have any issues, feel free to message me at InfernOz#0047 on discord.
+If you have any issues, feel free to message me at InfernOz#8917 on discord.
